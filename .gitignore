@@ -1,0 +1,49 @@
+# TermsScope Analytics
+
+## .env files
+.env
+.env.local
+.env.production
+
+## Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+## uv
+uv.lock
+
+## IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+## OS
+.DS_Store
+Thumbs.db
+
+## Node (frontend)
+node_modules/
+.next/
+dist/
+
+## Docker
+.docker/
+
+## Alembic
+alembic/versions/*.py
+!alembic/versions/__init__.py
+
+## Test
+.coverage
+htmlcov/
+.pytest_cache/

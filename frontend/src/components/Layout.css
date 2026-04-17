@@ -1,0 +1,28 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.layout__main {
+  flex: 1;
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-3xl);
+}
+
+.layout__footer {
+  border-top: 1px solid var(--border-color);
+  padding: var(--space-lg) 0;
+  text-align: center;
+}
+
+.layout__footer p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.layout__footer-disclaimer {
+  margin-top: var(--space-xs);
+  font-size: 0.7rem !important;
+  opacity: 0.7;
+}

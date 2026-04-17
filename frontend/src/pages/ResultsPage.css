@@ -1,0 +1,130 @@
+.results-page {
+  padding-bottom: var(--space-3xl);
+}
+
+/* ─── Header ─────────────────────────────────────────────── */
+.results-header {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.results-title {
+  font-size: 1.8rem;
+  margin-bottom: var(--space-sm);
+}
+
+.results-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ─── Overview (Score + Summary) ─────────────────────────── */
+.results-overview {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+}
+
+.results-score-card {
+  padding: var(--space-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.results-summary-card {
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-md);
+}
+
+.results-summary-card h2 {
+  font-size: 1.2rem;
+  color: var(--text-primary);
+}
+
+.results-summary-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.results-actions {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-sm);
+}
+
+/* ─── Categories ─────────────────────────────────────────── */
+.results-categories {
+  margin-bottom: var(--space-2xl);
+}
+
+.results-section-title {
+  font-size: 1.4rem;
+  margin-bottom: var(--space-lg);
+}
+
+.results-categories-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* ─── Disclaimer ─────────────────────────────────────────── */
+.results-disclaimer {
+  padding: var(--space-md) var(--space-lg);
+  text-align: center;
+}
+
+.results-disclaimer p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ─── Loading & Error ────────────────────────────────────── */
+.results-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  min-height: 300px;
+}
+
+.results-error {
+  max-width: 500px;
+  margin: var(--space-3xl) auto;
+  padding: var(--space-2xl);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.results-error span {
+  font-size: 3rem;
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .results-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .results-score-card {
+    order: -1;
+  }
+
+  .results-actions {
+    flex-direction: column;
+  }
+}

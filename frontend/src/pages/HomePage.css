@@ -1,0 +1,236 @@
+.home-page {
+  overflow: hidden;
+}
+
+/* ─── Hero ────────────────────────────────────────────────── */
+.hero {
+  padding: var(--space-3xl) 0 var(--space-2xl);
+  text-align: center;
+}
+
+.hero__content {
+  max-width: 700px;
+  margin: 0 auto var(--space-2xl);
+}
+
+.hero__badge {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-md);
+  background: rgba(108, 99, 255, 0.1);
+  border: 1px solid rgba(108, 99, 255, 0.2);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-primary-light);
+  margin-bottom: var(--space-lg);
+  letter-spacing: 0.03em;
+}
+
+.hero__title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: var(--space-lg);
+  letter-spacing: -0.03em;
+}
+
+.hero__title-accent {
+  background: linear-gradient(135deg, var(--color-primary-light), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero__subtitle {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ─── Input Section ──────────────────────────────────────── */
+.input-section {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: var(--space-lg);
+}
+
+.input-tabs {
+  display: flex;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+  background: var(--bg-card);
+  padding: var(--space-xs);
+  border-radius: var(--radius-md);
+}
+
+.input-tab {
+  flex: 1;
+  padding: var(--space-sm) var(--space-md);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.input-tab:hover {
+  color: var(--text-primary);
+}
+
+.input-tab--active {
+  background: var(--bg-glass);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.input-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.input-form__field {
+  width: 100%;
+}
+
+.input--large {
+  padding: var(--space-md) var(--space-lg);
+  font-size: 1rem;
+}
+
+.input-form__error {
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-critical-bg);
+  border: 1px solid rgba(255, 71, 87, 0.2);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  color: var(--color-critical);
+}
+
+.btn--large {
+  padding: var(--space-md) var(--space-xl);
+  font-size: 1rem;
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+/* ─── How it works ───────────────────────────────────────── */
+.how-it-works {
+  padding: var(--space-3xl) 0;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+  font-size: 2rem;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+.step {
+  padding: var(--space-xl);
+  text-align: center;
+  position: relative;
+}
+
+.step__number {
+  position: absolute;
+  top: var(--space-md);
+  left: var(--space-md);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.step__icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-md);
+}
+
+.step h3 {
+  margin-bottom: var(--space-sm);
+  font-size: 1.1rem;
+}
+
+.step p {
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+/* ─── Features ───────────────────────────────────────────── */
+.features {
+  padding: var(--space-2xl) 0 var(--space-3xl);
+}
+
+.features__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+}
+
+.feature {
+  text-align: center;
+  padding: var(--space-lg);
+}
+
+.feature__icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: var(--space-md);
+}
+
+.feature h4 {
+  margin-bottom: var(--space-sm);
+}
+
+.feature p {
+  font-size: 0.85rem;
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero__title {
+    font-size: 2.2rem;
+  }
+
+  .hero__subtitle {
+    font-size: 1rem;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .features__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .input-tabs {
+    flex-direction: column;
+  }
+}
