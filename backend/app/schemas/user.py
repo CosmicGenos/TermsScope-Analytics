@@ -1,4 +1,3 @@
-"""User-related schemas for API responses."""
 
 from __future__ import annotations
 

@@ -1,5 +1,3 @@
-"""Validation node — check token count and content quality."""
-
 from __future__ import annotations
 
 import logging
@@ -35,7 +33,7 @@ async def validate_content(state: AnalysisState) -> dict:
         enc = tiktoken.get_encoding("cl100k_base")
         token_count = len(enc.encode(content))
     except Exception:
-        # Fallback: rough estimate
+
         token_count = len(content) // 4
 
     logger.info("Content validated: %d tokens (%d characters)", token_count, len(content))

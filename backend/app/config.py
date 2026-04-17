@@ -1,5 +1,3 @@
-"""Application configuration via environment variables."""
-
 from __future__ import annotations
 
 import json
@@ -10,7 +8,6 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    """Central configuration loaded from environment / .env file."""
 
     model_config = SettingsConfigDict(
         env_file=".env",

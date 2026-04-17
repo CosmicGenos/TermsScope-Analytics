@@ -1,5 +1,3 @@
-"""PDF text extraction service."""
-
 from __future__ import annotations
 
 import logging
@@ -10,20 +8,7 @@ logger = logging.getLogger(__name__)
 
 
 async def extract_text_from_pdf(file_bytes: bytes, filename: str = "upload.pdf") -> dict:
-    """Extract text from a PDF file.
-
-    Parameters
-    ----------
-    file_bytes : bytes
-        Raw PDF file content.
-    filename : str
-        Original filename for logging.
-
-    Returns
-    -------
-    dict
-        {"success": bool, "content": str | None, "title": str | None, "error": str | None}
-    """
+    
     try:
         import fitz  # PyMuPDF
 

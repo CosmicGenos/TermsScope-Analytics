@@ -1,9 +1,3 @@
-"""Output schemas — the structured analysis results returned by the LLM pipeline.
-
-These Pydantic models are used BOTH as the LLM structured-output schema
-(via OpenAI's response_format / tool-use) AND as the API response shape.
-"""
-
 from __future__ import annotations
 
 from enum import Enum
@@ -15,7 +9,6 @@ from pydantic import BaseModel, Field
 # ── Risk Level ────────────────────────────────────────────────────────
 
 class RiskLevel(str, Enum):
-    """Clause risk classification."""
 
     CRITICAL = "critical"      # 🔴 Requires user attention
     MODERATE = "moderate"      # 🟡 Common but worth knowing

@@ -1,5 +1,3 @@
-"""FastAPI application factory."""
-
 from __future__ import annotations
 
 import logging
@@ -32,7 +30,6 @@ async def lifespan(app: FastAPI):
 
 
 def create_app() -> FastAPI:
-    """Build and configure the FastAPI application."""
     settings = get_settings()
 
     app = FastAPI(
@@ -64,5 +61,5 @@ def create_app() -> FastAPI:
     return app
 
 
-# Module-level instance for uvicorn
+
 app = create_app()

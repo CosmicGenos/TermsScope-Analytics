@@ -1,4 +1,3 @@
-"""Web scraping service for extracting ToS / legal text from URLs."""
 
 from __future__ import annotations
 
@@ -11,7 +10,6 @@ from bs4 import BeautifulSoup
 
 logger = logging.getLogger(__name__)
 
-# Tags likely to contain the main legal content
 _CONTENT_TAGS = ["article", "main", "section", "div"]
 _LEGAL_KEYWORDS = [
     "terms", "privacy", "policy", "agreement", "license",
@@ -28,19 +26,13 @@ _NOISE_SELECTORS = [
 
 
 async def scrape_url(url: str, timeout: float = 30.0) -> dict:
-    """Scrape legal text from a URL.
 
-    Returns
-    -------
-    dict
-        {"success": bool, "content": str | None, "title": str | None, "error": str | None}
-    """
-    # Step 1: Try static fetch via httpx
+    
     result = await _static_fetch(url, timeout)
     if result["success"] and result["content"] and len(result["content"]) > 200:
         return result
 
-    # Step 2: Fallback to Playwright for JS-rendered pages
+    
     logger.info("Static fetch insufficient for %s, trying Playwright...", url)
     result = await _playwright_fetch(url, timeout)
     if result["success"] and result["content"] and len(result["content"]) > 200:
@@ -123,14 +115,7 @@ def _extract_title(soup: BeautifulSoup) -> Optional[str]:
 
 
 def _extract_legal_text(soup: BeautifulSoup) -> str:
-    """Extract the main legal/ToS text from parsed HTML.
 
-    Strategy:
-    1. Remove noise elements (nav, footer, scripts, etc.)
-    2. Try to find a container with legal keywords in id/class
-    3. Fall back to largest text block
-    """
-    # Remove noise
     for selector in _NOISE_SELECTORS:
         for tag in soup.select(selector):
             tag.decompose()

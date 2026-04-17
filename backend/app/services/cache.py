@@ -1,5 +1,3 @@
-"""Redis-backed caching service for analysis results."""
-
 from __future__ import annotations
 
 import hashlib
@@ -14,16 +12,11 @@ logger = logging.getLogger(__name__)
 
 
 def compute_content_hash(content: str) -> str:
-    """SHA-256 hash of normalised content for cache keying."""
     normalised = " ".join(content.lower().split())
     return hashlib.sha256(normalised.encode()).hexdigest()
 
 
 async def get_cached_result(content_hash: str) -> Optional[dict]:
-    """Look up a cached analysis result by content hash.
-
-    Returns None on cache miss.
-    """
     try:
         redis = await get_redis()
         key = f"analysis:{content_hash}"

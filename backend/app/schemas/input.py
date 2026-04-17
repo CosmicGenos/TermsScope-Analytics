@@ -1,5 +1,3 @@
-"""Input schemas for analysis requests."""
-
 from __future__ import annotations
 
 from enum import Enum
@@ -9,7 +7,6 @@ from pydantic import BaseModel, Field, HttpUrl
 
 
 class InputType(str, Enum):
-    """Supported input types."""
 
     URL = "url"
     TEXT = "text"
@@ -17,7 +14,6 @@ class InputType(str, Enum):
 
 
 class AnalysisRequest(BaseModel):
-    """Request body for starting an analysis."""
 
     input_type: InputType
     url: Optional[HttpUrl] = Field(None, description="URL to a Terms of Service page")

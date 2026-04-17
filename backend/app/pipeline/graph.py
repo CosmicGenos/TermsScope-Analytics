@@ -1,5 +1,3 @@
-"""LangGraph pipeline — wires all nodes into the analysis graph."""
-
 from __future__ import annotations
 
 import logging
@@ -32,25 +30,19 @@ def _should_continue_after_validate(state: AnalysisState) -> str:
 
 
 def build_analysis_graph() -> StateGraph:
-    """Construct and compile the LangGraph analysis pipeline.
-
-    Graph flow:
-        acquire → validate → chunk → analyze → aggregate → END
-        (any node can short-circuit to END on error)
-    """
     graph = StateGraph(AnalysisState)
 
-    # ── Add nodes ─────────────────────────────────────────
+    
     graph.add_node("acquire", acquire_content)
     graph.add_node("validate", validate_content)
     graph.add_node("chunk", chunk_content)
     graph.add_node("analyze", run_analyzers)
     graph.add_node("aggregate", aggregate_results)
 
-    # ── Set entry point ───────────────────────────────────
+    
     graph.set_entry_point("acquire")
 
-    # ── Add edges ─────────────────────────────────────────
+    
     graph.add_conditional_edges("acquire", _should_continue_after_acquire)
     graph.add_conditional_edges("validate", _should_continue_after_validate)
     graph.add_edge("chunk", "analyze")
@@ -61,14 +53,7 @@ def build_analysis_graph() -> StateGraph:
 
 
 def compile_graph(checkpointer=None):
-    """Build and compile the graph, optionally with a checkpointer.
 
-    Parameters
-    ----------
-    checkpointer : optional
-        A LangGraph checkpointer (e.g. PostgresSaver) for state persistence.
-        If None, runs without persistence (fine for dev / testing).
-    """
     graph = build_analysis_graph()
 
     compile_kwargs = {}
