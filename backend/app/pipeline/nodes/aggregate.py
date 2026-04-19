@@ -3,10 +3,6 @@
 from __future__ import annotations
 
 import logging
-from typing import Any
-
-from app.llm.factory import LLMFactory
-from app.pipeline.prompts.system import BASE_SYSTEM_PROMPT
 from app.pipeline.state import AnalysisState
 from app.schemas.output import (
     AnalysisResult,
@@ -53,8 +49,8 @@ def _merge_category_results(chunk_results: list[dict]) -> CategoryResult:
             except Exception:
                 continue
 
-            # Simple dedup: normalise and check if we've seen ~same text
-            normalised = " ".join(clause.clause_text.lower().split())[:200]
+            # Dedup: compare full normalised text
+            normalised = " ".join(clause.clause_text.lower().split())
             if normalised not in seen_texts:
                 seen_texts.add(normalised)
                 all_clauses.append(clause)
@@ -70,9 +66,12 @@ def _merge_category_results(chunk_results: list[dict]) -> CategoryResult:
         raw_score = sum(
             _RISK_WEIGHTS.get(c.risk_level, 0) for c in all_clauses
         )
-        # Normalise to 0-100 range
-        max_possible = len(all_clauses) * 30
-        risk_score = max(0, min(100, int((raw_score / max(max_possible, 1)) * 100)))
+        # Normalise against the actual achievable range for this clause mix:
+        # max_positive = all CRITICAL (+30 each), min_possible = all POSITIVE (-10 each)
+        max_positive = len(all_clauses) * 30
+        min_possible = len(all_clauses) * -10
+        actual_range = max_positive - min_possible  # always 40 * n
+        risk_score = max(0, min(100, int(((raw_score - min_possible) / max(actual_range, 1)) * 100)))
 
     # Extract top concerns (critical first, then moderate)
     key_concerns = []

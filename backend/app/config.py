@@ -15,13 +15,13 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    # ── App ───────────────────────────────────────────────
+    # APP -----------------------------------------------------------
     app_name: str = "TermsScope Analytics"
     app_env: str = "development"
     debug: bool = True
     secret_key: str = "change-me-to-a-random-secret-key"
 
-    # ── Database ──────────────────────────────────────────
+   
     database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/termsscope"
     database_url_sync: str = "postgresql+psycopg://postgres:postgres@localhost:5432/termsscope"
 

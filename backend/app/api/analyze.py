@@ -18,7 +18,7 @@ from app.config import get_settings
 from app.db import get_db
 from app.models.analysis import Analysis
 from app.models.user import User
-from app.pipeline.graph import compile_graph
+from app.pipeline.graph import compile_graph, get_checkpointer
 from app.pipeline.state import AnalysisState
 from app.schemas.input import AnalysisRequest, InputType
 from app.services.cache import (
@@ -289,14 +289,19 @@ async def _run_pipeline(
             "cancellation_results": [],
             "liability_results": [],
         }
+
+        logger.info("Initial state for analysis %s: %s", analysis_id, initial_state)
+        
         if file_bytes:
             initial_state["file_bytes"] = file_bytes
 
-        graph = compile_graph()
+        checkpointer = await get_checkpointer()
+        graph = compile_graph(checkpointer=checkpointer)
+        config = {"configurable": {"thread_id": analysis_id}}
 
         # Stream through graph nodes
         final_state = None
-        async for event in graph.astream(initial_state, stream_mode="updates"):
+        async for event in graph.astream(initial_state, config, stream_mode="updates"):
             for node_name, node_output in event.items():
                 current_status = node_output.get("status", "")
                 error = node_output.get("error")
@@ -313,20 +318,38 @@ async def _run_pipeline(
                 progress_map = {
                     "validating": 15,
                     "chunking": 25,
-                    "analyzing": 40,
-                    "aggregating": 80,
+                    "aggregating": 85,
                     "complete": 100,
                 }
-                progress = progress_map.get(current_status, 50)
+                category_progress = {
+                    "analyze_privacy":      35,
+                    "analyze_financial":    45,
+                    "analyze_data_rights":  55,
+                    "analyze_cancellation": 65,
+                    "analyze_liability":    75,
+                }
+                progress = progress_map.get(
+                    current_status,
+                    category_progress.get(node_name, 50),
+                )
 
                 message_map = {
                     "validating": "Validating document...",
                     "chunking": "Splitting into sections...",
-                    "analyzing": "Analysing clauses (this may take a moment)...",
                     "aggregating": "Compiling results...",
                     "complete": "Analysis complete!",
                 }
-                message = message_map.get(current_status, f"Processing ({node_name})...")
+                category_messages = {
+                    "analyze_privacy":      "Analysing privacy clauses...",
+                    "analyze_financial":    "Analysing financial clauses...",
+                    "analyze_data_rights":  "Analysing data rights clauses...",
+                    "analyze_cancellation": "Analysing cancellation clauses...",
+                    "analyze_liability":    "Analysing liability clauses...",
+                }
+                message = message_map.get(
+                    current_status,
+                    category_messages.get(node_name, f"Processing ({node_name})..."),
+                )
 
                 await queue.put({
                     "event": "status",

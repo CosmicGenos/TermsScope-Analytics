@@ -1,10 +1,9 @@
-"""Analysis node — fan-out to 5 category analysers across all chunks."""
+"""Analysis nodes — one node per category, all running in parallel via LangGraph Send."""
 
 from __future__ import annotations
 
 import asyncio
 import logging
-from typing import Any
 
 from app.llm.factory import LLMFactory
 from app.pipeline.prompts.categories import CATEGORY_INSTRUCTIONS
@@ -14,22 +13,13 @@ from app.schemas.output import AnalyzerOutput
 
 logger = logging.getLogger(__name__)
 
-# Category → state key mapping
-_RESULT_KEYS = {
-    "privacy": "privacy_results",
-    "financial": "financial_results",
-    "data_rights": "data_rights_results",
-    "cancellation": "cancellation_results",
-    "liability": "liability_results",
-}
-
 
 async def _analyse_chunk(
-    llm, category: str, chunk: str, chunk_idx: int
+    llm, category: str, chunk: str, chunk_idx: int, total_chunks: int
 ) -> dict:
     """Run a single LLM call: one category × one chunk."""
     instruction = CATEGORY_INSTRUCTIONS[category]
-    prompt = build_analyzer_prompt(instruction, chunk)
+    prompt = build_analyzer_prompt(instruction, chunk, chunk_idx, total_chunks)
 
     try:
         result: AnalyzerOutput = await llm.generate(
@@ -57,62 +47,45 @@ async def _analyse_chunk(
         }
 
 
-async def run_analyzers(state: AnalysisState) -> dict:
-    """Run all 5 analysers across all chunks in parallel.
+def _make_category_node(category: str, result_key: str):
+    """Factory that returns a node function for a single category."""
 
-    For N chunks × 5 categories = 5N concurrent LLM calls.
-    Results are accumulated into per-category lists.
-    """
-    chunks = state.get("chunks", [])
-    if not chunks:
-        return {
-            "status": "error",
-            "error": "No content chunks to analyse.",
-        }
+    async def node(state: AnalysisState) -> dict:
+        chunks = state.get("chunks", [])
+        if not chunks:
+            return {result_key: [], "status": "aggregating"}
 
-    llm = LLMFactory.create(
-        provider=state.get("llm_provider"),
-        model=state.get("llm_model"),
-    )
+        llm = LLMFactory.create(
+            provider=state.get("llm_provider"),
+            model=state.get("llm_model"),
+        )
 
-    categories = list(CATEGORY_INSTRUCTIONS.keys())
+        total = len(chunks)
+        logger.info("Starting %s analysis: %d chunks", category, total)
 
-    logger.info(
-        "Starting analysis: %d chunks × %d categories = %d LLM calls",
-        len(chunks), len(categories), len(chunks) * len(categories),
-    )
+        tasks = [
+            _analyse_chunk(llm, category, chunk, idx, total)
+            for idx, chunk in enumerate(chunks)
+        ]
+        results = await asyncio.gather(*tasks, return_exceptions=True)
 
-    # Build all tasks
-    tasks: list[asyncio.Task] = []
-    for chunk_idx, chunk in enumerate(chunks):
-        for category in categories:
-            task = asyncio.create_task(
-                _analyse_chunk(llm, category, chunk, chunk_idx)
-            )
-            tasks.append(task)
+        category_results = []
+        for r in results:
+            if isinstance(r, Exception):
+                logger.error("%s task exception: %s", category, r)
+                continue
+            if isinstance(r, dict):
+                category_results.append(r)
 
-    # Run all in parallel
-    results = await asyncio.gather(*tasks, return_exceptions=True)
+        logger.info("%s analysis complete: %d chunk results", category, len(category_results))
+        return {result_key: category_results, "status": "aggregating"}
 
-    # Bucket results by category
-    updates: dict[str, list[dict]] = {key: [] for key in _RESULT_KEYS.values()}
+    node.__name__ = f"analyze_{category}"
+    return node
 
-    for r in results:
-        if isinstance(r, Exception):
-            logger.error("Task exception: %s", r)
-            continue
-        if isinstance(r, dict):
-            cat = r.get("category", "")
-            state_key = _RESULT_KEYS.get(cat)
-            if state_key:
-                updates[state_key].append(r)
 
-    logger.info(
-        "Analysis complete. Results per category: %s",
-        {k: len(v) for k, v in updates.items()},
-    )
-
-    return {
-        **updates,
-        "status": "aggregating",
-    }
+analyze_privacy      = _make_category_node("privacy",      "privacy_results")
+analyze_financial    = _make_category_node("financial",    "financial_results")
+analyze_data_rights  = _make_category_node("data_rights",  "data_rights_results")
+analyze_cancellation = _make_category_node("cancellation", "cancellation_results")
+analyze_liability    = _make_category_node("liability",    "liability_results")

@@ -70,7 +70,25 @@ async def acquire_content(state: AnalysisState) -> dict:
             "cleaned_content": "",
         }
 
-    # Clean content using LLM if it came from a URL (likely has noise)
+    # Basic noise filtering for all input types: drop very short or all-caps/all-digit lines
+    # that are likely navigation or UI chrome
+    def _strip_noise(text: str) -> str:
+        lines = text.splitlines()
+        cleaned_lines = []
+        for line in lines:
+            stripped = line.strip()
+            if not stripped:
+                cleaned_lines.append(line)
+                continue
+            # Skip lines that are likely UI noise: very short, all-caps, or purely numeric
+            if len(stripped) < 30 and (stripped.isupper() or stripped.isdigit()):
+                continue
+            cleaned_lines.append(line)
+        return "\n".join(cleaned_lines)
+
+    content = _strip_noise(content)
+
+    # Clean content using LLM if it came from a URL (likely has more noise)
     cleaned = content
     if input_type == "url" and len(content) > 500:
         try:
@@ -78,8 +96,18 @@ async def acquire_content(state: AnalysisState) -> dict:
                 provider=state.get("llm_provider"),
                 model=state.get("llm_model"),
             )
+            # Truncate at sentence boundary to avoid cutting mid-clause
+            _MAX_CLEAN_CHARS = 50_000
+            if len(content) > _MAX_CLEAN_CHARS:
+                truncated = content[:_MAX_CLEAN_CHARS]
+                last_break = max(truncated.rfind(". "), truncated.rfind(".\n"))
+                if last_break > _MAX_CLEAN_CHARS * 0.8:
+                    truncated = truncated[:last_break + 1]
+            else:
+                truncated = content
+
             cleaned = await llm.generate_text(
-                prompt=f"Extract and return only the legal document text from the following:\n\n{content[:50000]}",
+                prompt=f"Extract and return only the legal document text from the following:\n\n{truncated}",
                 system_prompt=_CLEANING_SYSTEM_PROMPT,
             )
             if len(cleaned) < len(content) * 0.1:
@@ -95,6 +123,3 @@ async def acquire_content(state: AnalysisState) -> dict:
         "document_title": title,
         "status": "validating",
     }
-
-
-# need fixes in filtering noise.
