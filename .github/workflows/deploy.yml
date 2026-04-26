@@ -1,0 +1,178 @@
+# =============================================================
+# CI/CD PIPELINE — GitHub Actions
+# =============================================================
+# What is this file?
+#   GitHub reads this file and automatically runs it when you push code.
+#   It lives in .github/workflows/ — GitHub looks there specifically.
+#
+# What does CI/CD mean?
+#   CI = Continuous Integration
+#        Every push → run tests + build automatically
+#   CD = Continuous Deployment
+#        If CI passes → deploy to production automatically
+#
+# The flow this file implements:
+#
+#   You push to "main" branch
+#          │
+#          ▼
+#   Job 1: test
+#     - Install Python deps
+#     - Run pytest
+#     - If tests fail → STOP, don't deploy ✋
+#          │
+#          ▼ (only if tests passed)
+#   Job 2: build-and-push
+#     - Build backend Docker image
+#     - Build frontend Docker image
+#     - Push both to Docker Hub
+#          │
+#          ▼ (only if build passed)
+#   Job 3: deploy
+#     - SSH into your DigitalOcean Droplet
+#     - Pull new images
+#     - Restart containers
+# =============================================================
+
+# Name shown in the GitHub → Actions tab
+name: Test, Build, and Deploy
+
+# ── WHEN to run this workflow ─────────────────────────────────
+on:
+  push:
+    branches:
+      - main    # Only trigger when pushing to the main branch
+
+  # Also allows you to manually trigger from GitHub UI
+  workflow_dispatch:
+
+# ── JOBS ──────────────────────────────────────────────────────
+# Jobs run in PARALLEL by default.
+# We use "needs:" to make them sequential where required.
+jobs:
+
+  # ============================================================
+  # JOB 1: Run tests
+  # ============================================================
+  test:
+    # This job runs on GitHub's free Ubuntu virtual machine
+    runs-on: ubuntu-latest
+
+    # Steps run sequentially, top to bottom
+    steps:
+      # Step 1: Download your code onto the CI machine
+      # "uses:" runs a pre-built action from the GitHub Actions marketplace
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Install the Python version we need
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Step 3: Install uv (our package manager)
+      # "run:" executes a shell command on the CI machine
+      - name: Install uv
+        run: pip install uv
+
+      # Step 4: Install all Python dependencies including dev tools (pytest)
+      # ".[dev]" means: install the package + its "dev" optional dependencies
+      # working-directory changes the folder for this step only
+      - name: Install Python dependencies
+        run: uv pip install --system ".[dev]"
+        working-directory: backend
+
+      # Step 5: Run the tests!
+      # If any test fails, this step fails, and the next job won't run.
+      - name: Run tests
+        run: pytest tests/ -v
+        working-directory: backend
+        # -v = verbose output (shows each test name)
+
+  # ============================================================
+  # JOB 2: Build Docker images and push to Docker Hub
+  # ============================================================
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    # "needs:" makes this job wait for "test" to finish successfully
+    # If tests fail, this job is SKIPPED entirely
+    needs: test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Log in to Docker Hub so we can push images there.
+      # DOCKER_USERNAME and DOCKER_PASSWORD are secrets you set in:
+      # GitHub → your repo → Settings → Secrets and variables → Actions
+      # NEVER hardcode credentials here — always use secrets.
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Build the backend image and push it to Docker Hub.
+      # The image will be named: yourusername/termsscope-backend:latest
+      # "latest" is the tag — in production you'd use the git commit SHA instead.
+      - name: Build and push backend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend      # Path to the Dockerfile folder
+          push: true              # Actually push to Docker Hub (not just build locally)
+          tags: ${{ secrets.DOCKER_USERNAME }}/termsscope-backend:latest
+
+      # Build the frontend image and push it
+      - name: Build and push frontend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/termsscope-frontend:latest
+
+  # ============================================================
+  # JOB 3: Deploy to DigitalOcean Droplet
+  # ============================================================
+  deploy:
+    runs-on: ubuntu-latest
+
+    # Only runs if build-and-push succeeded
+    needs: build-and-push
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # SSH into your DigitalOcean Droplet and run deployment commands.
+      # This action handles the SSH connection for us.
+      #
+      # Secrets you need to add in GitHub:
+      #   DO_HOST     = your Droplet's IP address (e.g. 123.45.67.89)
+      #   DO_SSH_KEY  = your SSH private key (the full content of ~/.ssh/id_rsa)
+      - name: Deploy to DigitalOcean via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.DO_HOST }}
+          username: root
+          key: ${{ secrets.DO_SSH_KEY }}
+
+          # These shell commands run ON your Droplet, not on the CI machine
+          script: |
+            # Go to the project folder on the Droplet
+            cd /root/TermsScope_Analytics
+
+            # Pull the latest code from GitHub
+            git pull origin main
+
+            # Pull the new Docker images we just pushed to Docker Hub
+            docker compose pull
+
+            # Restart containers with the new images
+            # -d = detached mode (runs in background)
+            # --build would rebuild from source, but we use pulled images
+            docker compose up -d
+
+            # Clean up old/unused Docker images to save disk space
+            docker image prune -f

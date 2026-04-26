@@ -1,0 +1,50 @@
+docker run -d ^
+  --name termsscope-postgres ^
+  -e POSTGRES_DB=termsscope ^
+  -e POSTGRES_USER=Kavindu ^
+  -e POSTGRES_PASSWORD=123456 ^
+  -p 5433:5432 ^
+  -v termsscope-pgdata:/var/lib/postgresql/data ^
+  postgres:16-alpine
+
+
+docker run -d ^
+  --name termsscope-redis ^
+  -p 6379:6379 ^
+  redis:7-alpine
+
+
+uv run alembic upgrade head
+
+uv run python run.py
+
+
+cd frontend
+npm install   # first time only
+npm run dev
+
+
+Backend: http://localhost:8000
+Frontend: http://localhost:5173
+API docs: http://localhost:8000/docs
+
+
+
+docker ps
+
+
+docker stop termsscope-postgres termsscope-redis
+
+# Start them again (data is preserved in the volume)
+docker start termsscope-postgres termsscope-redis
+
+# Remove containers (volume still kept — data safe)
+docker rm termsscope-postgres termsscope-redis
+
+# Nuclear option — remove everything including data
+docker rm -f termsscope-postgres termsscope-redis
+docker volume rm termsscope-pgdata
+
+netstat -ano | findstr :8000
+
+taskkill /PID 5720 /F

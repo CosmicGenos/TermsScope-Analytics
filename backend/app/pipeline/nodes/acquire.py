@@ -20,11 +20,35 @@ summarising or modifying the legal language. If the text does not appear to \
 contain any legal document, return the text as-is."""
 
 
+def _strip_noise(text: str) -> str:
+    """Drop lines that are clearly UI chrome rather than document content."""
+    lines = text.splitlines()
+    cleaned_lines = []
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            cleaned_lines.append(line)
+            continue
+        # Skip very short lines that are all-caps or purely numeric (nav items, page numbers)
+        if len(stripped) < 30 and (stripped.isupper() or stripped.isdigit()):
+            continue
+        # Skip common web chrome patterns
+        if stripped.lower() in (
+            "accept", "accept all", "reject all", "cookie settings",
+            "skip to content", "skip to main content", "back to top",
+            "close", "menu", "search", "sign in", "log in", "sign up",
+        ):
+            continue
+        cleaned_lines.append(line)
+    return "\n".join(cleaned_lines)
+
+
 async def acquire_content(state: AnalysisState) -> dict:
     """Acquire and clean the legal document text.
 
     Handles three input types: URL scraping, direct text, and PDF upload.
-    Returns updated state keys.
+    If pre_extracted_content is set in state (file uploads that already ran
+    PDF extraction for cache checking), that content is used directly.
     """
     input_type = state["input_type"]
     raw_input = state["raw_input"]
@@ -32,23 +56,23 @@ async def acquire_content(state: AnalysisState) -> dict:
     logger.info("Acquiring content: type=%s", input_type)
 
     content = None
-    title = None
     error = None
 
-    if input_type == "url":
+    # Fast path: API layer already extracted PDF content for cache checking
+    pre_extracted = state.get("pre_extracted_content")
+    if pre_extracted:
+        logger.info("Using pre-extracted content (%d chars)", len(pre_extracted))
+        content = pre_extracted
+
+    elif input_type == "url":
         result = await scrape_url(raw_input)
         if result["success"]:
             content = result["content"]
-            title = result["title"]
         else:
             error = result["error"]
 
     elif input_type == "text":
         content = raw_input
-        # Try to detect title from first line
-        lines = raw_input.strip().split("\n")
-        if lines and len(lines[0].strip()) < 200:
-            title = lines[0].strip()
 
     elif input_type == "file":
         file_bytes = state.get("file_bytes")
@@ -56,7 +80,6 @@ async def acquire_content(state: AnalysisState) -> dict:
             result = await extract_text_from_pdf(file_bytes, raw_input)
             if result["success"]:
                 content = result["content"]
-                title = result["title"]
             else:
                 error = result["error"]
         else:
@@ -70,25 +93,9 @@ async def acquire_content(state: AnalysisState) -> dict:
             "cleaned_content": "",
         }
 
-    # Basic noise filtering for all input types: drop very short or all-caps/all-digit lines
-    # that are likely navigation or UI chrome
-    def _strip_noise(text: str) -> str:
-        lines = text.splitlines()
-        cleaned_lines = []
-        for line in lines:
-            stripped = line.strip()
-            if not stripped:
-                cleaned_lines.append(line)
-                continue
-            # Skip lines that are likely UI noise: very short, all-caps, or purely numeric
-            if len(stripped) < 30 and (stripped.isupper() or stripped.isdigit()):
-                continue
-            cleaned_lines.append(line)
-        return "\n".join(cleaned_lines)
-
     content = _strip_noise(content)
 
-    # Clean content using LLM if it came from a URL (likely has more noise)
+    # LLM cleaning pass for URL content (removes residual web noise)
     cleaned = content
     if input_type == "url" and len(content) > 500:
         try:
@@ -96,7 +103,6 @@ async def acquire_content(state: AnalysisState) -> dict:
                 provider=state.get("llm_provider"),
                 model=state.get("llm_model"),
             )
-            # Truncate at sentence boundary to avoid cutting mid-clause
             _MAX_CLEAN_CHARS = 50_000
             if len(content) > _MAX_CLEAN_CHARS:
                 truncated = content[:_MAX_CLEAN_CHARS]
@@ -111,7 +117,6 @@ async def acquire_content(state: AnalysisState) -> dict:
                 system_prompt=_CLEANING_SYSTEM_PROMPT,
             )
             if len(cleaned) < len(content) * 0.1:
-                # LLM over-stripped; fall back to raw content
                 cleaned = content
         except Exception as exc:
             logger.warning("LLM cleaning failed, using raw content: %s", exc)
@@ -120,6 +125,5 @@ async def acquire_content(state: AnalysisState) -> dict:
     return {
         "raw_content": content,
         "cleaned_content": cleaned,
-        "document_title": title,
-        "status": "validating",
+        "status": "enriching",
     }

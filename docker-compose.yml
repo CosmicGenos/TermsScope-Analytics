@@ -1,44 +1,127 @@
-services:
-  backend:
-    build: ./backend
-    ports:
-      - "8000:8000"
-    env_file:
-      - ./backend/.env
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-    volumes:
-      - ./backend/app:/app/app  # Hot reload in dev
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+# =============================================================
+# DOCKER COMPOSE — runs all services together
+# =============================================================
+# What is Docker Compose?
+#   A tool to define and run MULTIPLE containers as one stack.
+#   Instead of running 4 separate docker commands, you run one:
+#     docker compose up
+#
+# How containers talk to each other:
+#   Inside this compose file, each service name IS the hostname.
+#   So the backend connects to postgres at "postgres:5432"
+#   NOT at "localhost:5432" — localhost means the container itself.
+#
+# Port mapping syntax:  "HOST:CONTAINER"
+#   "8000:8000" means: your computer's port 8000 → container's port 8000
+#   "5432:5432" means: your computer's port 5432 → container's port 5432
+# =============================================================
 
+services:
+
+  # ────────────────────────────────────────────────────────────
+  # POSTGRES — the relational database
+  # ────────────────────────────────────────────────────────────
   postgres:
+    # Use the official postgres image — no build needed
     image: postgres:16-alpine
+
+    # Environment variables configure postgres on first startup
     environment:
-      POSTGRES_DB: termsscope
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: termsscope       # Database name to create
+      POSTGRES_USER: postgres       # Superuser username
+      POSTGRES_PASSWORD: postgres   # Superuser password
+
     ports:
-      - "5432:5432"
+      - "5432:5432"   # Expose to your machine so you can use TablePlus/pgAdmin
+
+    # Named volume: Docker manages where data is stored on disk.
+    # Data persists even if you stop/remove the container.
+    # Without this, your database resets every time you restart.
     volumes:
       - pgdata:/var/lib/postgresql/data
+
+    # Healthcheck: tells Docker when postgres is ACTUALLY ready.
+    # Other services use "condition: service_healthy" to wait for this.
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 3s
-      retries: 5
+      interval: 5s    # Check every 5 seconds
+      timeout: 3s     # Wait max 3 seconds for a response
+      retries: 5      # Mark unhealthy after 5 consecutive failures
 
+  # ────────────────────────────────────────────────────────────
+  # REDIS — the cache / session store
+  # ────────────────────────────────────────────────────────────
   redis:
     image: redis:7-alpine
+
     ports:
-      - "6379:6379"
+      - "6379:6379"   # Expose so you can connect with Redis CLI/GUI
+
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       timeout: 3s
       retries: 5
 
+  # ────────────────────────────────────────────────────────────
+  # BACKEND — FastAPI application
+  # ────────────────────────────────────────────────────────────
+  backend:
+    # "build" tells compose to BUILD an image from a Dockerfile
+    # rather than pulling a pre-built one from Docker Hub.
+    build: ./backend
+
+    ports:
+      - "8000:8000"
+
+    # Load all environment variables from this file.
+    # The file is read on YOUR machine and injected into the container.
+    env_file:
+      - ./backend/.env.docker
+
+    # depends_on controls STARTUP ORDER.
+    # "service_healthy" waits until the healthcheck passes.
+    # Without this, the backend might start before postgres is ready.
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+    # Volume mount for hot-reload during development.
+    # Your local ./backend/app folder is "mounted" into the container.
+    # Changes you make on your machine instantly appear inside the container.
+    # This is a DEV convenience — production wouldn't use this.
+    volumes:
+      - ./backend/app:/app/app
+
+    # This OVERRIDES the CMD in the Dockerfile.
+    # --reload makes uvicorn restart when Python files change.
+    # Perfect for development. Remove --reload in production.
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  # ────────────────────────────────────────────────────────────
+  # FRONTEND — React app served by nginx
+  # ────────────────────────────────────────────────────────────
+  frontend:
+    build: ./frontend
+
+    ports:
+      - "80:80"   # Access the app at http://localhost (port 80 is default HTTP)
+
+    # Start frontend after backend is up
+    depends_on:
+      - backend
+
+    # NOTE: No volumes here — unlike backend, we can't hot-reload
+    # a compiled React app. To see changes, rebuild the image.
+    # For dev, just run "npm run dev" directly (port 5173).
+
+
+# ────────────────────────────────────────────────────────────
+# NAMED VOLUMES declaration
+# ────────────────────────────────────────────────────────────
+# You must declare named volumes here at the top level.
+# Docker creates and manages these automatically.
 volumes:
-  pgdata:
+  pgdata:   # Used by the postgres service above

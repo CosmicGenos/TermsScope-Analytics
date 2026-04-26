@@ -55,17 +55,36 @@ def _make_category_node(category: str, result_key: str):
         if not chunks:
             return {result_key: [], "status": "aggregating"}
 
+        chunk_category_map: dict = state.get("chunk_category_map") or {}
+
+        # Only process chunks that are flagged as relevant to this category.
+        # If no map is present, process all chunks (safe fallback).
+        if chunk_category_map:
+            relevant = [
+                (idx, chunk) for idx, chunk in enumerate(chunks)
+                if category in chunk_category_map.get(idx, [category])
+            ]
+        else:
+            relevant = list(enumerate(chunks))
+
+        if not relevant:
+            logger.info("%s: no relevant chunks found, skipping", category)
+            return {result_key: [], "status": "aggregating"}
+
         llm = LLMFactory.create(
             provider=state.get("llm_provider"),
             model=state.get("llm_model"),
         )
 
         total = len(chunks)
-        logger.info("Starting %s analysis: %d chunks", category, total)
+        logger.info(
+            "Starting %s analysis: %d/%d chunks relevant",
+            category, len(relevant), total,
+        )
 
         tasks = [
             _analyse_chunk(llm, category, chunk, idx, total)
-            for idx, chunk in enumerate(chunks)
+            for idx, chunk in relevant
         ]
         results = await asyncio.gather(*tasks, return_exceptions=True)
 

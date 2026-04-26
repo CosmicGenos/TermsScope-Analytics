@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+from contextlib import asynccontextmanager
 
 from langgraph.graph import END, StateGraph
 from langgraph.types import Send
@@ -15,6 +16,7 @@ from app.pipeline.nodes.analyze import (
     analyze_privacy,
 )
 from app.pipeline.nodes.chunk import chunk_content
+from app.pipeline.nodes.enrich import enrich_document
 from app.pipeline.nodes.validate import validate_content
 from app.pipeline.state import AnalysisState
 
@@ -30,6 +32,12 @@ _CATEGORY_NODES = [
 
 
 def _should_continue_after_acquire(state: AnalysisState) -> str:
+    if state.get("status") == "error":
+        return END
+    return "enrich"
+
+
+def _should_continue_after_enrich(state: AnalysisState) -> str:
     if state.get("status") == "error":
         return END
     return "validate"
@@ -55,21 +63,23 @@ def _dispatch_analyzers(state: AnalysisState) -> list[Send]:
 def build_analysis_graph() -> StateGraph:
     graph = StateGraph(AnalysisState)
 
-    graph.add_node("acquire",             acquire_content)
-    graph.add_node("validate",            validate_content)
-    graph.add_node("chunk",               chunk_content)
-    graph.add_node("analyze_privacy",     analyze_privacy)
-    graph.add_node("analyze_financial",   analyze_financial)
-    graph.add_node("analyze_data_rights", analyze_data_rights)
-    graph.add_node("analyze_cancellation",analyze_cancellation)
-    graph.add_node("analyze_liability",   analyze_liability)
-    graph.add_node("aggregate",           aggregate_results)
+    graph.add_node("acquire",              acquire_content)
+    graph.add_node("enrich",               enrich_document)
+    graph.add_node("validate",             validate_content)
+    graph.add_node("chunk",                chunk_content)
+    graph.add_node("analyze_privacy",      analyze_privacy)
+    graph.add_node("analyze_financial",    analyze_financial)
+    graph.add_node("analyze_data_rights",  analyze_data_rights)
+    graph.add_node("analyze_cancellation", analyze_cancellation)
+    graph.add_node("analyze_liability",    analyze_liability)
+    graph.add_node("aggregate",            aggregate_results)
 
     graph.set_entry_point("acquire")
 
-    graph.add_conditional_edges("acquire",   _should_continue_after_acquire)
-    graph.add_conditional_edges("validate",  _should_continue_after_validate)
-    graph.add_conditional_edges("chunk",     _dispatch_analyzers, _CATEGORY_NODES)
+    graph.add_conditional_edges("acquire",  _should_continue_after_acquire)
+    graph.add_conditional_edges("enrich",   _should_continue_after_enrich)
+    graph.add_conditional_edges("validate", _should_continue_after_validate)
+    graph.add_conditional_edges("chunk",    _dispatch_analyzers, _CATEGORY_NODES)
 
     for node in _CATEGORY_NODES:
         graph.add_edge(node, "aggregate")
@@ -79,17 +89,17 @@ def build_analysis_graph() -> StateGraph:
     return graph
 
 
+@asynccontextmanager
 async def get_checkpointer():
-    """Create and initialise a PostgreSQL-backed LangGraph checkpointer."""
+    """Async context manager that yields an initialised PostgreSQL-backed LangGraph checkpointer."""
     from app.config import get_settings
     from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
 
     settings = get_settings()
-    # AsyncPostgresSaver needs a raw psycopg3 connection string (no SQLAlchemy prefix)
     raw_url = settings.database_url_sync.replace("postgresql+psycopg://", "postgresql://")
-    checkpointer = AsyncPostgresSaver.from_conn_string(raw_url)
-    await checkpointer.setup()
-    return checkpointer
+    async with AsyncPostgresSaver.from_conn_string(raw_url) as checkpointer:
+        await checkpointer.setup()
+        yield checkpointer
 
 
 def compile_graph(checkpointer=None):

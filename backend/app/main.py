@@ -10,6 +10,7 @@ from app.api.router import api_router
 from app.config import get_settings
 from app.db.redis import close_redis
 
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s | %(levelname)-7s | %(name)s | %(message)s",
@@ -41,7 +42,7 @@ def create_app() -> FastAPI:
         redoc_url="/redoc" if settings.debug else None,
     )
 
-    # ── CORS ──────────────────────────────────────────────
+    
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.cors_origin_list,
@@ -50,10 +51,10 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
 
-    # ── Routes ────────────────────────────────────────────
+   
     app.include_router(api_router)
 
-    # ── Health check ──────────────────────────────────────
+    
     @app.get("/health", tags=["Health"])
     async def health():
         return {"status": "ok", "service": settings.app_name}
