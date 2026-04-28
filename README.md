@@ -109,7 +109,7 @@ CACHE_TTL_SECONDS=86400
 
 # LLM provider  *  (at least one key is required)
 DEFAULT_LLM_PROVIDER=openai
-DEFAULT_LLM_MODEL=gpt-4o-mini
+DEFAULT_LLM_MODEL= gpt-5.4-2026-03-05
 OPENAI_API_KEY=sk-...
 GOOGLE_API_KEY=                  # optional — for Gemini
 ANTHROPIC_API_KEY=               # optional — for Claude
@@ -157,13 +157,13 @@ npm install        # first time only
 npm run dev
 ```
 
-The frontend starts at **http://localhost:5173**.
+The frontend starts at **http://localhost:3000**.
 
 ---
 
 ## Usage
 
-1. Open **http://localhost:5173** in your browser.
+1. Open **http://localhost:3000** in your browser.
 2. Paste a URL (e.g. `https://example.com/terms`), type/paste raw text, or drag in a PDF.
 3. Click **Analyze** and watch the live progress bar as the pipeline runs.
 4. Review the results: per-category risk scores, flagged clauses, and a plain-English summary.
@@ -251,6 +251,6 @@ The backend supports OpenAI, Google Gemini, and Anthropic Claude. Switch provide
 
 | Provider value | Example model |
 |---|---|
-| `openai` | `gpt-4o-mini`, `gpt-4o` |
-| `gemini` | `gemini-1.5-flash`, `gemini-1.5-pro` |
-| `claude` | `claude-3-5-haiku-20241022`, `claude-sonnet-4-6` |
+| `openai` | `gpt-5.4-2026-03-05`, `gpt-5.5-2026-04-23` |
+| `gemini` | `gemini-3`, `gemini-2.5-pro` |
+| `claude` | `claude`, `claude-sonnet-4-6` |
