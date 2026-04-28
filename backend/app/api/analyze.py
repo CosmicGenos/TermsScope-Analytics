@@ -66,6 +66,11 @@ async def create_analysis(
                 )
                 db.add(analysis)
                 await db.commit()
+                _analysis_streams[analysis_id] = asyncio.Queue()
+                await _analysis_streams[analysis_id].put({
+                    "event": "complete",
+                    "data": {"status": "complete", "analysis_id": analysis_id, "result": cached},
+                })
                 return {
                     "analysis_id": analysis_id,
                     "status": "complete",
@@ -90,6 +95,11 @@ async def create_analysis(
                 )
                 db.add(analysis)
                 await db.commit()
+                _analysis_streams[analysis_id] = asyncio.Queue()
+                await _analysis_streams[analysis_id].put({
+                    "event": "complete",
+                    "data": {"status": "complete", "analysis_id": analysis_id, "result": cached},
+                })
                 return {
                     "analysis_id": analysis_id,
                     "status": "complete",
@@ -178,6 +188,11 @@ async def create_analysis_from_file(
             )
             db.add(analysis)
             await db.commit()
+            _analysis_streams[analysis_id] = asyncio.Queue()
+            await _analysis_streams[analysis_id].put({
+                "event": "complete",
+                "data": {"status": "complete", "analysis_id": analysis_id, "result": cached},
+            })
             return {
                 "analysis_id": analysis_id,
                 "status": "complete",
@@ -450,6 +465,9 @@ async def _update_analysis_db(
                 analysis.status = status
                 if result is not None:
                     analysis.result = result
+                    analysis.company_name  = result.get("company_name")
+                    analysis.document_type = result.get("document_type")
+                    analysis.overall_score = result.get("overall_score")
                 if error_message is not None:
                     analysis.error_message = error_message
                 if content_hash is not None:

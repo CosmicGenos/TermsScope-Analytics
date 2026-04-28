@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 # Only the first portion of the document is needed for metadata / structure.
-_ENRICH_EXCERPT_CHARS = 8_000
+_ENRICH_EXCERPT_CHARS = 50000 # ~10k tokens, should cover all metadata and section headings in most docs
 
 METADATA_SYSTEM_PROMPT = """\
 You are a legal document metadata extractor.

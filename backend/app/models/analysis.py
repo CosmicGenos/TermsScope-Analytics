@@ -32,6 +32,11 @@ class Analysis(UUIDPrimaryKeyMixin, TimestampMixin, Base):
     input_url: Mapped[Optional[str]] = mapped_column(String(2048), nullable=True)
     document_title: Mapped[Optional[str]] = mapped_column(String(500), nullable=True)
 
+    # Denormalized from result JSONB for easy querying / sorting
+    company_name: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
+    document_type: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
+    overall_score: Mapped[Optional[int]] = mapped_column(nullable=True)
+
     # Content hash for caching / dedup
     content_hash: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
 

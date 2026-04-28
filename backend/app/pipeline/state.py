@@ -33,7 +33,6 @@ class AnalysisState(TypedDict, total=False):
     content_quality: Optional[dict]
 
     chunks: list[str]
-    chunk_category_map: Optional[dict]  # {chunk_idx: [category, ...]}
 
     privacy_results: Annotated[list[dict], _merge_list]
     financial_results: Annotated[list[dict], _merge_list]
