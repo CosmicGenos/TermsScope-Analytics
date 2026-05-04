@@ -14,7 +14,7 @@
 # Port mapping syntax:  "HOST:CONTAINER"
 #   "8000:8000" means: your computer's port 8000 → container's port 8000
 #   "5432:5432" means: your computer's port 5432 → container's port 5432
-# =============================================================
+# =============================================================          
 
 services:
 
@@ -98,7 +98,7 @@ services:
     # This OVERRIDES the CMD in the Dockerfile.
     # --reload makes uvicorn restart when Python files change.
     # Perfect for development. Remove --reload in production.
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 
+    command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
 
   # ────────────────────────────────────────────────────────────
   # FRONTEND — React app served by nginx

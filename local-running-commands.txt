@@ -53,3 +53,8 @@ acquire → enrich → validate → chunk → analyze × 5 → aggregate
 
 
 docker compose up --build
+
+
+D:\TermsScope_Analytics>cd backend
+
+D:\TermsScope_Analytics\backend>uv run python -c "import secrets; print(secrets.token_hex(64))"
