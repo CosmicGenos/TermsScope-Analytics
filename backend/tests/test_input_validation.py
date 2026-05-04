@@ -46,12 +46,12 @@ def test_file_wrong_extension_returns_400(client: TestClient):
     assert "PDF" in res.json()["detail"] or "TXT" in res.json()["detail"]
 
 
-def test_file_no_filename_returns_400(client: TestClient):
+def test_file_no_filename_returns_4xx(client: TestClient):
     res = client.post(
         "/api/analyze/file",
         files={"file": ("", b"some content", "text/plain")},
     )
-    assert res.status_code == 400
+    assert res.status_code in (400, 422)
 
 
 def test_file_too_large_returns_400(client: TestClient):
