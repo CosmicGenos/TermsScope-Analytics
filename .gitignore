@@ -21,9 +21,6 @@ dist/
 build/
 .eggs/
 
-## uv
-uv.lock
-
 ## IDE
 .vscode/
 .idea/
