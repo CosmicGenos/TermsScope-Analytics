@@ -1,0 +1,13 @@
+{
+  "run_id": "20260503-190334-sonnet-4",
+  "generated_at": "2026-05-03T19:08:18Z",
+  "judge_provider": "claude",
+  "judge_model": "claude-sonnet-4-5-20250929",
+  "ts_provider": "openai",
+  "ts_model": "gpt-5.4-2026-03-05",
+  "embedding_model": "text-embedding-3-small",
+  "match_threshold": 0.75,
+  "temperature": 0.0,
+  "seed": 42,
+  "git_sha": "c51df883e4f61f2708663952cca9b4e08dc66731"
+}

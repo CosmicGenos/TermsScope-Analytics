@@ -1,0 +1,11 @@
+platform,error,ts_overall_score,judge_overall_score,ts_clause_count,judge_clause_count,precision,recall,f1,kappa,ts_hallucination_rate
+discord,"ValidationError: 3 validation errors for AnalysisResult
+overall_score
+  Field required [type=missing, input_value={'$PARAMETER_NAME': {'doc...uestions or concerns.'}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+overall_summary
+  Field required [type=missing, input_value={'$PARAMETER_NAME': {'doc...uestions or concerns.'}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+categories
+  Field required [type=missing, input_value={'$PARAMETER_NAME': {'doc...uestions or concerns.'}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing",0,0,0,0,,,,,

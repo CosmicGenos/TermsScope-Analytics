@@ -1,0 +1,2 @@
+platform,error,ts_overall_score,judge_overall_score,ts_clause_count,judge_clause_count,precision,recall,f1,kappa,ts_hallucination_rate
+discord,RuntimeError: ANTHROPIC_API_KEY is not set. Configure it in backend/.env before running evals.,0,0,0,0,,,,,

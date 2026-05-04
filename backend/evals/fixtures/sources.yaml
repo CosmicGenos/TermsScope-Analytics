@@ -1,0 +1,67 @@
+- slug: discord
+  urls:
+  - https://discord.com/terms
+  - https://discord.com/privacy
+  - https://discord.com/terms/paid-services-terms
+  sha256: f102d59cf66530864a2a745c4a66cacc3500e50e23170a4e082e2f1233083c1c
+  length: 59489
+  fetched_at: '2026-05-03T16:28:27Z'
+  skipped: true
+- slug: spotify
+  urls:
+  - https://www.spotify.com/us/legal/end-user-agreement/
+  - https://www.spotify.com/us/legal/privacy-policy/
+  - https://www.spotify.com/us/legal/paid-subscription-terms/
+  sha256: 8e610753d1440dd0b04e40b2985cb4401e9c6c969056c80a7fa301b2182deb23
+  length: 54235
+  fetched_at: '2026-05-03T16:28:30Z'
+  skipped: true
+- slug: openai
+  urls:
+  - https://openai.com/policies/terms-of-use/
+  - https://openai.com/policies/privacy-policy/
+  sha256: 4b4fe38a6a4548c23692285daf248b0f612da456ad6502172a6b7fc14604a56c
+  length: 20535
+  fetched_at: '2026-05-03T16:28:30Z'
+  skipped: true
+- slug: reddit
+  urls:
+  - https://www.redditinc.com/policies/user-agreement
+  - https://www.reddit.com/policies/privacy-policy
+  sha256: 7544312c830a3bb62dcb4a601f905024583e06cb153d32dcf0a4538e2bbb2a01
+  length: 46296
+  fetched_at: '2026-05-03T16:28:30Z'
+  skipped: true
+- slug: netflix
+  urls:
+  - https://help.netflix.com/legal/termsofuse
+  - https://help.netflix.com/legal/privacy
+  sha256: 9593d810a462746832d4fc1bafd52e61426257bd8ad812899a550ecd214eb3b4
+  length: 22323
+  fetched_at: '2026-05-03T16:28:32Z'
+  skipped: true
+- slug: github
+  urls:
+  - https://docs.github.com/en/site-policy/github-terms/github-terms-of-service
+  - https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement
+  sha256: e31ff8021ae18c2b51834dcca5e0de24a1212fad248404101394fa460cf6ffcf
+  length: 45735
+  fetched_at: '2026-05-03T16:28:32Z'
+  skipped: true
+- slug: notion
+  urls:
+  - https://www.notion.so/terms
+  - https://www.notion.com/trust/privacy-policy
+  sha256: 956a5d6d5b6ca9a3842c3f7973eedec59eaae27710439baa469d1f4fc340a5f9
+  length: 166
+  raw_length: 166
+  fetched_at: '2026-05-03T18:56:28Z'
+  skipped: false
+- slug: substack
+  urls:
+  - https://substack.com/tos
+  - https://substack.com/privacy
+  sha256: eb43d69ee974611b93ba3b351a4823120063e8ce64f5f2fda07b494ff7ebbe3d
+  length: 21833
+  fetched_at: '2026-05-03T16:28:34Z'
+  skipped: true

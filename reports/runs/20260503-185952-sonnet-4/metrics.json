@@ -1,0 +1,82 @@
+{
+  "run_id": "20260503-185952-sonnet-4",
+  "generated_at": "2026-05-03T19:00:55Z",
+  "judge_model": "claude-sonnet-4-5-20250929",
+  "ts_model": "gpt-5.4-2026-03-05",
+  "embedding_model": "text-embedding-3-small",
+  "git_sha": "c51df883e4f61f2708663952cca9b4e08dc66731",
+  "seed": 42,
+  "n_platforms_attempted": 1,
+  "n_platforms_succeeded": 0,
+  "n_platforms_errored": 1,
+  "global": {
+    "score_summary": {
+      "n": 0,
+      "pearson_r": null,
+      "spearman_rho": null,
+      "mae": null,
+      "rmse": null,
+      "bias": null
+    },
+    "per_category_score_correlation": {
+      "privacy": {
+        "n": 0,
+        "pearson_r": null,
+        "mae": null
+      },
+      "financial": {
+        "n": 0,
+        "pearson_r": null,
+        "mae": null
+      },
+      "data_rights": {
+        "n": 0,
+        "pearson_r": null,
+        "mae": null
+      },
+      "cancellation": {
+        "n": 0,
+        "pearson_r": null,
+        "mae": null
+      },
+      "liability": {
+        "n": 0,
+        "pearson_r": null,
+        "mae": null
+      }
+    },
+    "micro_precision": 0.0,
+    "micro_recall": 0.0,
+    "micro_f1": 0.0,
+    "macro_f1_by_category": {},
+    "f1_means": {
+      "mean_f1": NaN,
+      "mean_precision": NaN,
+      "mean_recall": 0.0
+    },
+    "aggregate_confusion_matrix": null,
+    "aggregate_kappa": null,
+    "hallucination": {
+      "mean_ts_hallucination_rate": null,
+      "ts_hallucination_rate_ci95": null,
+      "platforms_with_pass2": 0
+    }
+  },
+  "platforms": [
+    {
+      "platform": "discord",
+      "ts_overall_score": 0,
+      "judge_overall_score": 0,
+      "ts_clause_count": 0,
+      "judge_clause_count": 0,
+      "score_metrics": {},
+      "clause_metrics": {},
+      "per_category_clause_metrics": {},
+      "per_category_scores": [],
+      "risk_level_agreement": {},
+      "coverage": {},
+      "hallucination": {},
+      "error": "RuntimeError: ANTHROPIC_API_KEY is not set. Configure it in backend/.env before running evals."
+    }
+  ]
+}

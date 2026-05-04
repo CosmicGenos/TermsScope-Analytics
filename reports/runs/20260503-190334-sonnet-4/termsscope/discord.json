@@ -1,0 +1,788 @@
+{
+  "overall_score": 54,
+  "overall_summary": "Analysed 102 clauses across 5 categories in Discord Inc. Terms of Service. Found 13 critical risks, 52 moderate concerns, and 20 positive clauses. This document has some areas of concern worth reviewing.",
+  "categories": [
+    {
+      "category": "privacy",
+      "risk_score": 46,
+      "clauses": [
+        {
+          "clause_text": "We also have a Privacy Policy ... and other policies ... that apply to your use of our services and are incorporated into these terms.",
+          "risk_level": "moderate",
+          "summary": "Discord says its Privacy Policy is part of the contract, so data-handling rules may be binding even though they are not fully stated here.",
+          "implication": "If you accept this, your privacy rights and Discord’s data practices may be governed by another document you also agree to, not just these Terms.",
+          "section_reference": "Introduction"
+        },
+        {
+          "clause_text": "We may take additional steps, including the use of third-party services, to determine whether you are old enough to create a Discord account or access certain features or spaces.",
+          "risk_level": "moderate",
+          "summary": "Discord may use outside services to verify your age, which means extra personal data may be checked or shared for age screening.",
+          "implication": "If you accept this, they can use third parties to assess your age before letting you use some parts of Discord.",
+          "section_reference": "Age requirements and responsibility of parents and legal guardians"
+        },
+        {
+          "clause_text": "Discord is designed to integrate with your device to make it easy to share what you’re up to. When Discord is running, we may identify active games and other applications on your device ... share your status (including what game you're playing or what song you’re listening to if you link a music account)",
+          "risk_level": "moderate",
+          "summary": "Discord may detect what apps and games are running on your device and use linked-account activity to power status and sharing features.",
+          "implication": "If you accept this, they can monitor app activity on your device while Discord is running and use that information in your profile or status features.",
+          "section_reference": "What you can expect from us"
+        },
+        {
+          "clause_text": "You can change your Settings at any time, and you’re in control of whether or not you connect other accounts to Discord.",
+          "risk_level": "positive",
+          "summary": "Discord says you can control linked accounts and related sharing settings yourself.",
+          "implication": "If you accept this, you can turn off or limit some account-linking and activity-sharing features in Settings.",
+          "section_reference": "What you can expect from us"
+        },
+        {
+          "clause_text": "Discord’s services may be personalized to each user based on a variety of factors, including their activity, preferences they identified in their Settings, and servers they belong to, so that you can see content and communities that may be of interest to you (such as features or activity on Discord, promotions from us, and sponsored content).",
+          "risk_level": "moderate",
+          "summary": "Discord uses your activity, settings, and server memberships to personalize what you see, including promotions and sponsored content.",
+          "implication": "If you accept this, they can profile your behavior and interests to shape your feed, recommendations, and ads-like promotions.",
+          "section_reference": "What you can expect from us"
+        },
+        {
+          "clause_text": "You can control whether and to what extent Discord personalizes your experience in your Settings.",
+          "risk_level": "positive",
+          "summary": "Discord says personalization can be adjusted by the user rather than being entirely mandatory.",
+          "implication": "If you accept this, you may be able to reduce or change some profiling-based personalization in your Settings.",
+          "section_reference": "What you can expect from us"
+        },
+        {
+          "clause_text": "Certain features and settings may have different defaults depending on your age or where you live, and some may not be optional at all.",
+          "risk_level": "neutral",
+          "summary": "Discord may apply different privacy or safety defaults based on age or location, and some settings may be mandatory.",
+          "implication": "If you accept this, some data-related settings may be preset or unavailable to change depending on your age or country.",
+          "section_reference": "What you can expect from us"
+        },
+        {
+          "clause_text": "To access the services on an ongoing basis, you will need to create a Discord account. You can provide a username and password, and a way of contacting you (such as an email address and/or phone number). You’ll also need to provide your birthday. In some cases, you may be required to verify your account or provide additional information.",
+          "risk_level": "moderate",
+          "summary": "Discord requires account data including contact details and date of birth, and may ask for more information later.",
+          "implication": "If you accept this, they can collect your email or phone number, birthdate, and possibly extra verification data to keep or unlock your account.",
+          "section_reference": "Your Discord account"
+        },
+        {
+          "clause_text": "You must always provide accurate information to Discord and maintain the accuracy of the information associated with your account.",
+          "risk_level": "neutral",
+          "summary": "Discord expects the personal information tied to your account to stay accurate.",
+          "implication": "If you accept this, they can expect you to keep your account data current rather than using outdated or false details.",
+          "section_reference": "Your Discord account"
+        },
+        {
+          "clause_text": "If you get locked out of your account, we’ll need to contact you at the email or phone number associated with your account. If your account is compromised or you no longer have access to your email account or phone number, we may not be able to restore your access to your account or the servers you’ve created.",
+          "risk_level": "neutral",
+          "summary": "Discord relies on your stored contact information for account recovery.",
+          "implication": "If you accept this, your email or phone number becomes important recovery data and losing access to it may block account restoration.",
+          "section_reference": "Your Discord account"
+        },
+        {
+          "clause_text": "Learn more about how we use your content in our Privacy Policy",
+          "risk_level": "moderate",
+          "summary": "Discord pushes key details about how your messages and uploads are used into the Privacy Policy instead of explaining them here.",
+          "implication": "If you accept this, the real rules for how they handle your content data may be elsewhere and need separate review.",
+          "section_reference": "Your content"
+        },
+        {
+          "clause_text": "You agree that we may disclose your content to third parties outside of the services when we believe we’re required to do so by law or regulation or that doing so is necessary to prevent harm to a person or to protect Discord’s rights and property.",
+          "risk_level": "moderate",
+          "summary": "Discord may share your content with outside parties for legal compliance, safety, or to protect itself.",
+          "implication": "If you accept this, they can hand over your messages or uploads to third parties when they think the law, safety, or their own interests require it.",
+          "section_reference": "Your content"
+        },
+        {
+          "clause_text": "You should review any terms and policies provided by the third parties before doing so as they govern your use of their services.",
+          "risk_level": "moderate",
+          "summary": "Third-party apps, bots, and integrations on Discord may collect and use your data under their own privacy rules.",
+          "implication": "If you accept this, using bots or third-party features can expose your data to outside companies under separate policies Discord does not control.",
+          "section_reference": "Third-party services"
+        },
+        {
+          "clause_text": "Disabling your account limits the processing of your personal information as described in our Privacy Policy. Disabling your account does not terminate this agreement.",
+          "risk_level": "moderate",
+          "summary": "Disabling an account only reduces some processing; it is not the same as full deletion.",
+          "implication": "If you accept this, turning off your account may not erase your data, and Discord may still keep or process some information under its Privacy Policy.",
+          "section_reference": "Term & Termination"
+        },
+        {
+          "clause_text": "Our rights to retain and display certain data",
+          "risk_level": "critical",
+          "summary": "Discord explicitly says some data may be kept and shown even after termination.",
+          "implication": "If you accept this, they can continue retaining and displaying certain data after your account or agreement ends.",
+          "section_reference": "Survival"
+        },
+        {
+          "clause_text": "We may send you electronic communications related to our services. Where required, we’ll get your consent before sending you direct marketing, and we’ll make it easy for you to opt out.",
+          "risk_level": "positive",
+          "summary": "Discord promises consent where legally required for direct marketing and says opting out will be easy.",
+          "implication": "If you accept this, they may contact you electronically, but marketing messages should come with consent where required and an opt-out option.",
+          "section_reference": "Contacting each other"
+        }
+      ],
+      "summary": "This Terms of Service text contains several meaningful privacy-related clauses, but many important details are deferred to Discord’s separate Privacy Policy. In this text alone, Discord says it collects account data like email/phone and birthdate, may use third parties for age checks, can detect active games and apps on your device, personalizes content and promotions based on your activity and server memberships, and may disclose your content to outside parties for legal, safety, or self-protection reasons. There are a few user-friendly points, such as settings controls for linked accounts and personalization, and consent/opt-out language for direct marketing. The strongest privacy concern in this chunk is that Discord says some data may be retained and displayed even after termination, while account disabling only limits processing rather than deleting data.",
+      "key_concerns": [
+        "Discord explicitly says some data may be kept and shown even after termination.",
+        "Discord says its Privacy Policy is part of the contract, so data-handling rules may be binding even though they are not fully stated here.",
+        "Discord may use outside services to verify your age, which means extra personal data may be checked or shared for age screening."
+      ]
+    },
+    {
+      "category": "financial",
+      "risk_score": 42,
+      "clauses": [
+        {
+          "clause_text": "If you’re a parent or legal guardian, and you allow your child ... to use the services, then you and the minor child accept and agree to be bound by these terms and are responsible for all use of the Discord account or services, including your child’s activity on the services and purchases made by them, whether the minor’s account is now open or created later.",
+          "risk_level": "moderate",
+          "summary": "Parents are financially responsible for purchases a minor makes through Discord.",
+          "implication": "If you accept this, Discord can treat purchases made by your child on the account as your responsibility.",
+          "section_reference": "Age requirements and responsibility of parents and legal guardians"
+        },
+        {
+          "clause_text": "We may assume that any communications we’ve received from your account or the associated contact information have been made by you, and that any purchases made using your account were made by you.",
+          "risk_level": "moderate",
+          "summary": "Discord says it can treat purchases on your account as authorized by you.",
+          "implication": "If you accept this, you may have a harder time disputing charges made through your account because Discord can presume you approved them.",
+          "section_reference": "Your Discord account"
+        },
+        {
+          "clause_text": "Discord’s Paid Services Terms apply to any purchase you make through Discord, and you may also be asked to agree to separate terms such as our Monetization Terms before purchasing or selling new offerings through Discord.",
+          "risk_level": "moderate",
+          "summary": "Any actual payment, billing, refund, and subscription rules are pushed into separate paid-service terms not included here.",
+          "implication": "If you accept this, important money-related rules may apply from another document, so the real billing terms are not fully stated in this text.",
+          "section_reference": "Intro / Discord’s paid services"
+        },
+        {
+          "clause_text": "We won’t charge you a fee to use the basic functionality of our services, but you may be able to pay for additional features and products.",
+          "risk_level": "neutral",
+          "summary": "Basic Discord use is free, but extra features or products can cost money.",
+          "implication": "If you accept this, you can use core Discord without charge, but optional paid features may lead to purchases.",
+          "section_reference": "Discord’s paid services"
+        },
+        {
+          "clause_text": "Discord’s Paid Services Terms also apply to any purchase you make using Discord’s supported purchase flows, and you may also be asked to agree to separate terms such as our Monetization Terms before purchasing or selling new offerings through Discord.",
+          "risk_level": "moderate",
+          "summary": "Purchases are governed by separate payment terms that are not shown in this text.",
+          "implication": "If you accept this, fees, renewals, refunds, and cancellation rules may be controlled by another agreement you need to read separately.",
+          "section_reference": "Discord’s paid services"
+        },
+        {
+          "clause_text": "You are responsible for any mobile charges that you may incur for using our services. This includes data charges and charges for messaging, such as SMS, MMS, or other messaging protocols or technologies.",
+          "risk_level": "moderate",
+          "summary": "Using Discord can trigger mobile carrier charges, and Discord puts those costs on you.",
+          "implication": "If you accept this, they can require you to cover any data or messaging fees your phone provider bills for Discord use.",
+          "section_reference": "Data Charges"
+        },
+        {
+          "clause_text": "If you are not sure what you may be charged, you should ask your mobile service provider before using our services.",
+          "risk_level": "neutral",
+          "summary": "Discord warns that carrier fees may apply and tells users to check with their mobile provider.",
+          "implication": "If you accept this, you are expected to figure out any network or messaging costs yourself before using the service.",
+          "section_reference": "Data Charges"
+        },
+        {
+          "clause_text": "If Discord is the Party initiating an arbitration against you, Discord will pay all costs associated with the arbitration, including the entire filing fee.",
+          "risk_level": "positive",
+          "summary": "If Discord starts arbitration, Discord—not you—covers the arbitration costs.",
+          "implication": "If you accept this, they must pay the filing and arbitration fees when they are the one bringing the claim.",
+          "section_reference": "Settling disputes between you and Discord - Arbitration Costs"
+        },
+        {
+          "clause_text": "If you initiate an arbitration against Discord, costs will be determined in accordance with the Rules for the applicable arbitration provider, to the extent allowed by law. In all arbitrations, unless otherwise required by law or the arbitration provider’s rules, you are responsible for all other additional arbitration costs incurred, including attorney’s fees and expert witness costs.",
+          "risk_level": "moderate",
+          "summary": "If you bring a claim, you may have to pay arbitration-related costs and your own legal and expert expenses.",
+          "implication": "If you accept this, pursuing a money dispute against Discord could cost you significant out-of-pocket fees.",
+          "section_reference": "Settling disputes between you and Discord - Arbitration Costs"
+        },
+        {
+          "clause_text": "The Parties agree that the arbitration provider has discretion to modify the amount or timing of any administrative or arbitration fees due under the applicable rules where it deems appropriate, provided that such modification does not increase the costs to you.",
+          "risk_level": "positive",
+          "summary": "The arbitration provider can adjust fee timing or amounts, but not in a way that raises your costs.",
+          "implication": "If you accept this, your arbitration fees should not be increased through provider fee adjustments under this clause.",
+          "section_reference": "Settling disputes between you and Discord - Arbitration Costs"
+        },
+        {
+          "clause_text": "If the offer made by the offering Party is not accepted by the other Party, and the other Party fails to obtain a more favorable award, the other Party will not recover its post-offer costs and will pay the offering Party’s costs from the time of the offer.",
+          "risk_level": "moderate",
+          "summary": "Rejecting a settlement offer in arbitration can leave you paying the other side’s later costs if you do worse than the offer.",
+          "implication": "If you accept this, turning down a settlement and then losing ground in arbitration could make you owe Discord’s post-offer costs.",
+          "section_reference": "Settling disputes between you and Discord - Offer of Judgment"
+        },
+        {
+          "clause_text": "Any amounts owed will remain due;",
+          "risk_level": "moderate",
+          "summary": "Ending the agreement does not erase money you still owe Discord.",
+          "implication": "If you accept this, they can still pursue unpaid charges after your account or the contract ends.",
+          "section_reference": "Survival"
+        },
+        {
+          "clause_text": "If the app fails to conform to any applicable warranty, you may notify Apple and Apple will refund the app purchase price to you (if applicable) and, to the maximum extent permitted by applicable law, Apple will have no other warranty obligation whatsoever with respect to the Discord app.",
+          "risk_level": "positive",
+          "summary": "For App Store purchases, Apple may refund the app purchase price if the app breaches an applicable warranty.",
+          "implication": "If you accept this, there is at least a stated path to get back the app purchase price from Apple in that limited situation.",
+          "section_reference": "Apple App Store"
+        }
+      ],
+      "summary": "This text contains only limited direct billing terms. The main financial points are that basic Discord is free but paid features are governed by separate Paid Services Terms not included here, parents are responsible for minors’ purchases, Discord can presume purchases made through your account were authorized by you, and you must pay your own mobile carrier charges. The other meaningful money-related clauses are in the dispute section, where bringing a claim can expose you to arbitration costs and even the other side’s post-offer costs in some cases.",
+      "key_concerns": [
+        "Parents are financially responsible for purchases a minor makes through Discord.",
+        "Discord says it can treat purchases on your account as authorized by you.",
+        "Any actual payment, billing, refund, and subscription rules are pushed into separate paid-service terms not included here."
+      ]
+    },
+    {
+      "category": "data_rights",
+      "risk_score": 43,
+      "clauses": [
+        {
+          "clause_text": "Your content is yours, but you give us a license (which is a form of permission) to it when you use Discord.",
+          "risk_level": "positive",
+          "summary": "Discord says you keep ownership of what you post rather than transferring ownership to them.",
+          "implication": "If you accept this, you still own your messages, images, videos, and other content instead of giving Discord title to it.",
+          "section_reference": "Content in Discord’s services — Your content"
+        },
+        {
+          "clause_text": "by using our services, you grant us a license to use, reproduce, distribute, create derivative works of, display, and perform your content.",
+          "risk_level": "moderate",
+          "summary": "You give Discord broad permission to copy, share, modify, and show your content.",
+          "implication": "If you accept this, they can use your uploads in many ways needed to run and improve the service, including making modified versions of them.",
+          "section_reference": "Content in Discord’s services — Your content"
+        },
+        {
+          "clause_text": "The rights you grant in this license are for the limited purpose of providing, developing, and improving our services as permitted by applicable laws.",
+          "risk_level": "positive",
+          "summary": "The content license is broad, but Discord says it is limited to running, building, and improving Discord.",
+          "implication": "If you accept this, they cannot rely on this clause as a blanket right to use your content for unrelated purposes outside service operation and improvement.",
+          "section_reference": "Content in Discord’s services — Your content"
+        },
+        {
+          "clause_text": "This license is worldwide, non-exclusive (which means you can still license your content to others), royalty-free (which means there are no fees for this license), sublicensable, and transferable.",
+          "risk_level": "moderate",
+          "summary": "Discord’s license applies globally, costs them nothing, and can be passed on to others or transferred.",
+          "implication": "If you accept this, they can let affiliates, vendors, or other partners use your content under this license without paying you.",
+          "section_reference": "Content in Discord’s services — Your content"
+        },
+        {
+          "clause_text": "We reserve the right to block, remove, and/or permanently delete your content if we determine it is in breach of these terms, our Community Guidelines, our other policies, or any applicable law or regulation, or if it creates risk for Discord or negatively impacts the experience or interests of other Discord users to continue to make it available.",
+          "risk_level": "moderate",
+          "summary": "Discord can remove or permanently delete your content based on its own judgment about rules, risk, or user experience.",
+          "implication": "If you accept this, they can take down your posts or uploads and you may lose access to them if Discord decides they should not stay up.",
+          "section_reference": "Content in Discord’s services — Your content"
+        },
+        {
+          "clause_text": "You agree that we may disclose your content to third parties outside of the services when we believe we’re required to do so by law or regulation or that doing so is necessary to prevent harm to a person or to protect Discord’s rights and property.",
+          "risk_level": "moderate",
+          "summary": "Discord can share your content outside the platform in certain legal or protective situations.",
+          "implication": "If you accept this, they can hand your content to outside parties when they think the law requires it or when they believe it protects people or Discord.",
+          "section_reference": "Content in Discord’s services — Your content"
+        },
+        {
+          "clause_text": "By sending us feedback, you grant us a non-exclusive, perpetual, irrevocable, transferable license to use the feedback and ideas generated from the feedback without any restrictions, attribution, or compensation to you.",
+          "risk_level": "critical",
+          "summary": "If you send feedback or ideas, Discord gets a permanent, irrevocable right to use them forever without credit or payment.",
+          "implication": "If you accept this, they can take your suggestions, product ideas, or improvements, use them commercially forever, transfer those rights, and never credit or compensate you.",
+          "section_reference": "Content in Discord’s services — Your content"
+        },
+        {
+          "clause_text": "Other people’s content is theirs and doesn’t necessarily reflect Discord’s own views.",
+          "risk_level": "positive",
+          "summary": "Discord recognizes that content posted by other users belongs to those users, not to Discord or to you.",
+          "implication": "If you accept this, you should assume other users keep ownership of what they post and you do not get rights to reuse it just because it appears on Discord.",
+          "section_reference": "Other content"
+        },
+        {
+          "clause_text": "You may not use this content without that person’s consent, or as allowed by law.",
+          "risk_level": "neutral",
+          "summary": "You cannot reuse other users’ content unless they allow it or the law permits it.",
+          "implication": "If you accept this, you cannot treat content you see on Discord as free to copy or republish.",
+          "section_reference": "Other content"
+        },
+        {
+          "clause_text": "Some of our services allow you to download client software. So long as you comply with these terms, we grant you a worldwide, non-exclusive, personal, non-transferable, non-sublicensable, and non-assignable license to download, install, and run that software, solely to access our services.",
+          "risk_level": "neutral",
+          "summary": "You only get a limited personal license to use Discord’s software, not ownership of it.",
+          "implication": "If you accept this, you can use the app for yourself, but you cannot pass your software rights to someone else.",
+          "section_reference": "Software in Discord’s services — License to our software"
+        },
+        {
+          "clause_text": "You may not copy, modify, create derivative works based upon, distribute, sell, lease, or sublicense any of our software or services.",
+          "risk_level": "neutral",
+          "summary": "Discord keeps tight control over its own software and forbids you from reusing or remixing it.",
+          "implication": "If you accept this, you cannot legally republish, alter, or build on Discord’s software unless the law or Discord separately allows it.",
+          "section_reference": "Software in Discord’s services — License to our software"
+        },
+        {
+          "clause_text": "Although we are granting you this license, we retain any intellectual property rights we have in our software and services.",
+          "risk_level": "neutral",
+          "summary": "Discord makes clear that it still owns its software and service IP.",
+          "implication": "If you accept this, using Discord does not give you ownership of the app, code, branding, or service materials.",
+          "section_reference": "Software in Discord’s services — License to our software"
+        },
+        {
+          "clause_text": "Some of Discord’s services include software subject to separate open source license terms... some licenses may explicitly override these terms.",
+          "risk_level": "positive",
+          "summary": "Open-source components may give you additional rights beyond the main Terms if their licenses say so.",
+          "implication": "If you accept this, some parts of Discord’s software may come with more user-friendly reuse rights under separate open-source licenses.",
+          "section_reference": "Software in Discord’s services — Open source"
+        },
+        {
+          "clause_text": "selling, licensing, or otherwise commercializing content or data obtained from our services",
+          "risk_level": "moderate",
+          "summary": "Discord forbids you from commercially exploiting content or data you get from the platform.",
+          "implication": "If you accept this, you cannot lawfully resell or monetize content or datasets taken from Discord without permission.",
+          "section_reference": "Restrictions on your use of Discord’s services"
+        },
+        {
+          "clause_text": "your content may not be retrievable due to such outages or changes.",
+          "risk_level": "moderate",
+          "summary": "Discord warns that service changes or outages may make your content impossible to recover.",
+          "implication": "If you accept this, you should not assume Discord will always preserve or return your uploaded content if the service changes or breaks.",
+          "section_reference": "What you can expect from us"
+        },
+        {
+          "clause_text": "To terminate this agreement, you may delete your Discord account through the Settings page in the Discord app... Certain provisions of these terms will survive termination as outlined below in the “Survival” section.",
+          "risk_level": "moderate",
+          "summary": "Deleting your account ends use of the service, but some rights and obligations continue afterward.",
+          "implication": "If you accept this, account deletion does not necessarily wipe out every permission or rule tied to your content.",
+          "section_reference": "Term & Termination"
+        },
+        {
+          "clause_text": "Any part of these terms that by their nature should survive after termination of these terms will survive. As permitted under applicable law, this includes but may not be limited to the following: Our rights to retain and display certain data",
+          "risk_level": "critical",
+          "summary": "Discord says some rights continue after termination, including rights to retain and display certain data.",
+          "implication": "If you accept this, deleting your account may not end Discord’s ability to keep and show at least some of your content or data afterward.",
+          "section_reference": "More important stuff — Survival"
+        }
+      ],
+      "summary": "This text says you keep ownership of your content, which is good, but you give Discord a broad worldwide, royalty-free, sublicensable, transferable license to use and modify it for providing, developing, and improving the service. The strongest IP risk is the feedback clause: any ideas or suggestions you send become subject to a perpetual, irrevocable, transferable license with no attribution or payment. The text also signals that some rights to retain and display certain data may survive account deletion, and it does not provide a clear user export or portability right in this chunk. No explicit AI training clause appears in the text provided.",
+      "key_concerns": [
+        "If you send feedback or ideas, Discord gets a permanent, irrevocable right to use them forever without credit or payment.",
+        "Discord says some rights continue after termination, including rights to retain and display certain data.",
+        "You give Discord broad permission to copy, share, modify, and show your content."
+      ]
+    },
+    {
+      "category": "cancellation",
+      "risk_score": 44,
+      "clauses": [
+        {
+          "clause_text": "As part of these efforts, we may add or remove features, start offering new services, or stop offering some services entirely (or just in some places or for some users) if they no longer make sense from a business perspective or create risk for Discord, our users, or other third parties.",
+          "risk_level": "moderate",
+          "summary": "Discord says it can change, reduce, or discontinue features or services when it decides they no longer make business sense or create risk.",
+          "implication": "If you accept this, they can remove features you rely on or stop offering parts of the service to you or your region.",
+          "section_reference": "What you can expect from us"
+        },
+        {
+          "clause_text": "While we try to avoid disruptions, we cannot guarantee that there will not be an outage or change to the services, and your content may not be retrievable due to such outages or changes.",
+          "risk_level": "moderate",
+          "summary": "Discord does not promise service continuity and warns that outages or service changes could make your content inaccessible.",
+          "implication": "If you accept this, you may lose access to messages or other account content after outages or product changes, with no promise of recovery.",
+          "section_reference": "What you can expect from us"
+        },
+        {
+          "clause_text": "If your account is compromised or you no longer have access to your email account or phone number, we may not be able to restore your access to your account or the servers you’ve created.",
+          "risk_level": "moderate",
+          "summary": "If you lose access to your login contact methods, Discord may be unable to give you your account back.",
+          "implication": "If you accept this, losing your email or phone could mean permanently losing your account and any servers you created.",
+          "section_reference": "Your Discord account"
+        },
+        {
+          "clause_text": "You agree not to license, sell, lend, or transfer your account, Discord username, vanity URL, or other unique identifier without our prior written approval.",
+          "risk_level": "neutral",
+          "summary": "Your account and identifiers are personal to you and cannot be shared or transferred without Discord's permission.",
+          "implication": "If you accept this, they can treat account sharing or transfers as a violation and take action against the account.",
+          "section_reference": "Your Discord account"
+        },
+        {
+          "clause_text": "We also reserve the right to delete, change, or reclaim your username, URL, or other identifier.",
+          "risk_level": "moderate",
+          "summary": "Discord can take back or change your username or other account identifiers.",
+          "implication": "If you accept this, they can remove or alter the identity tied to your account even if you were using it before.",
+          "section_reference": "Your Discord account"
+        },
+        {
+          "clause_text": "Your right to terminate. You’re free to stop using Discord’s services at any time and for any reason. To terminate this agreement, you may delete your Discord account through the Settings page in the Discord app (the gear icon next to your username) and discontinue use of the services.",
+          "risk_level": "positive",
+          "summary": "Users get a clear self-service way to leave: you can delete your account in the app settings at any time for any reason.",
+          "implication": "If you accept this, you can cancel on your own without having to contact support or justify your decision.",
+          "section_reference": "10. Term & Termination"
+        },
+        {
+          "clause_text": "Certain provisions of these terms will survive termination as outlined below in the “Survival” section.",
+          "risk_level": "neutral",
+          "summary": "Ending your account does not end every legal obligation in the terms.",
+          "implication": "If you accept this, some rules will still apply after you leave, such as dispute-related or other surviving provisions.",
+          "section_reference": "10. Term & Termination"
+        },
+        {
+          "clause_text": "Disabling your account limits the processing of your personal information as described in our Privacy Policy. Disabling your account does not terminate this agreement.",
+          "risk_level": "moderate",
+          "summary": "Temporarily disabling your account is not the same as actually ending your contract with Discord.",
+          "implication": "If you accept this, simply disabling the account will not fully close it or end the terms that govern your use.",
+          "section_reference": "10. Term & Termination"
+        },
+        {
+          "clause_text": "Subject to applicable law, we reserve the right to suspend or terminate your account and/or your access to some or all of our services with or without notice, at our discretion for any reason",
+          "risk_level": "critical",
+          "summary": "Discord claims broad power to suspend or permanently terminate your account, including without notice and for any reason.",
+          "implication": "If you accept this, they can cut off your account or access to parts of Discord whenever they choose, potentially without warning.",
+          "section_reference": "10. Term & Termination"
+        },
+        {
+          "clause_text": "You breach, or you encourage or help others to breach, these terms (including, our Community Guidelines, our other policies, or additional terms that apply to specific services).",
+          "risk_level": "neutral",
+          "summary": "Breaking Discord's rules or helping others break them can trigger suspension or termination.",
+          "implication": "If you accept this, violating the platform rules can lead to losing your account or access.",
+          "section_reference": "10. Term & Termination"
+        },
+        {
+          "clause_text": "We’re required to do so to comply with a legal requirement or court order.",
+          "risk_level": "neutral",
+          "summary": "Discord may suspend or terminate accounts when the law or a court requires it.",
+          "implication": "If you accept this, legal demands can force account restrictions or closure even if you did nothing wrong under Discord's own rules.",
+          "section_reference": "10. Term & Termination"
+        },
+        {
+          "clause_text": "We reasonably believe termination is necessary to prevent harm to you, us, other users, or third parties.",
+          "risk_level": "moderate",
+          "summary": "Discord can terminate accounts based on its own judgment that doing so is needed to prevent harm.",
+          "implication": "If you accept this, they can remove your account based on a broad safety judgment before any formal finding of wrongdoing.",
+          "section_reference": "10. Term & Termination"
+        },
+        {
+          "clause_text": "Your account has been inactive for more than two years.",
+          "risk_level": "moderate",
+          "summary": "Discord can terminate accounts that have been inactive for over two years.",
+          "implication": "If you accept this, leaving your account unused for a long time could result in losing it.",
+          "section_reference": "10. Term & Termination"
+        },
+        {
+          "clause_text": "Continuing to allow your account to be active, giving you access to some or all services, or hosting your content creates risk for Discord, other users, or third parties.",
+          "risk_level": "moderate",
+          "summary": "Discord can suspend or terminate you if it thinks your account, access, or stored content creates risk.",
+          "implication": "If you accept this, they can restrict your account based on a broad and subjective risk assessment.",
+          "section_reference": "10. Term & Termination"
+        },
+        {
+          "clause_text": "However, we will give you advance notice if reasonable to do so or required by applicable law.",
+          "risk_level": "positive",
+          "summary": "Discord says it will give advance notice before suspension or termination when that is reasonable or legally required.",
+          "implication": "If you accept this, you may get warning before account action in some cases, but not in all cases.",
+          "section_reference": "10. Term & Termination"
+        },
+        {
+          "clause_text": "You can appeal any enforcement action we take under these terms or other policies, including terminations, suspensions, or content removals through this form or available in-app options.",
+          "risk_level": "positive",
+          "summary": "Discord offers an appeal process for suspensions, terminations, and other enforcement actions.",
+          "implication": "If you accept this, you have a stated route to challenge a wrongful suspension or account termination.",
+          "section_reference": "11. Appeals"
+        },
+        {
+          "clause_text": "If you reside in the European Union, your appeal must be submitted within six months of the day the relevant decision has been notified to you.",
+          "risk_level": "neutral",
+          "summary": "EU users have a six-month deadline to appeal enforcement decisions.",
+          "implication": "If you accept this, waiting too long after a suspension or termination notice could cause you to lose the appeal opportunity.",
+          "section_reference": "11. Appeals"
+        },
+        {
+          "clause_text": "Any part of these terms that by their nature should survive after termination of these terms will survive. As permitted under applicable law, this includes but may not be limited to the following: Our rights to retain and display certain data; Any amounts owed will remain due; Any indemnification obligations ... Any disclaimer of warranties ... Any applicable limitation of liability ... Any dispute resolution provisions, including the arbitration agreement",
+          "risk_level": "moderate",
+          "summary": "Even after your account ends, Discord says several important terms continue, including data retention rights and dispute rules.",
+          "implication": "If you accept this, ending the service does not necessarily mean your data disappears or that all legal obligations between you and Discord end.",
+          "section_reference": "Survival"
+        },
+        {
+          "clause_text": "We may decide to update these terms: (1) to reflect changes to our services or our business, (2) for legal or regulatory reasons, (3) to prevent abuse on or of our services, or (4) to better protect or serve users of our services. If these changes materially affect your Discord use or your legal rights, we’ll give you reasonable advance notice (unless the updates are urgent). If you continue to use our services after the changes have taken effect, it means that you agree to the changes. If you don’t agree, you must stop using our services.",
+          "risk_level": "moderate",
+          "summary": "Discord can change the terms and your continued use counts as acceptance, though it promises advance notice for material changes unless urgent.",
+          "implication": "If you accept this, the rules governing your account can change later, and your only real option if you disagree may be to stop using Discord.",
+          "section_reference": "Updates to these terms"
+        }
+      ],
+      "summary": "This text gives users a clear self-service account deletion path and an appeal process for suspensions or terminations, which are meaningful user protections. But Discord also keeps very broad power to suspend or terminate accounts or access with or without notice, for any reason, and to remove features or even stop services entirely. The terms also allow inactivity-based termination after two years and make clear that disabling an account is not the same as terminating it. There is no clear promise here about data export or deletion timing after account closure, only that some data-retention rights survive termination.",
+      "key_concerns": [
+        "Discord claims broad power to suspend or permanently terminate your account, including without notice and for any reason.",
+        "Discord says it can change, reduce, or discontinue features or services when it decides they no longer make business sense or create risk.",
+        "Discord does not promise service continuity and warns that outages or service changes could make your content inaccessible."
+      ]
+    },
+    {
+      "category": "liability",
+      "risk_score": 56,
+      "clauses": [
+        {
+          "clause_text": "We are not liable for any such outages or service changes.",
+          "risk_level": "moderate",
+          "summary": "Discord says it is not responsible if the service goes down or changes and your content becomes unavailable.",
+          "implication": "If you accept this, they can deny responsibility for outages, feature removals, or lost access to content caused by service changes.",
+          "section_reference": "What you can expect from us"
+        },
+        {
+          "clause_text": "You agree we will not be liable for any harm caused by that content.",
+          "risk_level": "moderate",
+          "summary": "Discord disclaims responsibility for harm caused by other users’ content on the platform.",
+          "implication": "If you accept this, they can argue they are not responsible if user-posted content harms you.",
+          "section_reference": "Other content"
+        },
+        {
+          "clause_text": "Discord is not responsible for any third-party services. ... Discord does not warrant or endorse, and will not have any liability for, any third-party services.",
+          "risk_level": "moderate",
+          "summary": "Discord refuses responsibility for apps, bots, and other third-party services used through Discord.",
+          "implication": "If you accept this, they can avoid liability if a bot, app, or other third-party integration causes problems or losses.",
+          "section_reference": "Software in Discord’s services - Third-party services"
+        },
+        {
+          "clause_text": "You will indemnify and hold Discord and its officers, directors, employees and agents harmless from and against any claims, liabilities, damages, and costs (including reasonable legal and accounting fees) related to (a) your access to or use of our services or third-party services, (b) your content, (c) your violation of these terms, or (d) your negligence or willful misconduct.",
+          "risk_level": "critical",
+          "summary": "You must cover Discord’s losses and legal costs if claims are tied to your use of the service, your content, your rule-breaking, or your negligence or misconduct.",
+          "implication": "If you accept this, they can make you pay their legal and related costs for a wide range of claims connected to your account or activity.",
+          "section_reference": "12. Indemnity"
+        },
+        {
+          "clause_text": "TO THE FULLEST EXTENT PERMITTED BY LAW, DISCORD, ITS AFFILIATES, AND THEIR RESPECTIVE SUPPLIERS MAKE NO WARRANTIES, EITHER EXPRESS OR IMPLIED, ABOUT THE SERVICES. THE SERVICES ARE PROVIDED “AS IS.”",
+          "risk_level": "moderate",
+          "summary": "Discord provides the service without promising it will work properly or meet any particular standard.",
+          "implication": "If you accept this, they can argue you took the service as-is and cannot rely on broad promises about quality or reliability.",
+          "section_reference": "13. Services “AS IS”"
+        },
+        {
+          "clause_text": "WE ALSO DISCLAIM ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT, AND NON-INFRINGEMENT, AND ANY WARRANTIES ARISING OUT OF COURSE OF DEALING OR USAGE OF TRADE.",
+          "risk_level": "moderate",
+          "summary": "Discord specifically disclaims standard legal warranties that normally protect consumers and business users.",
+          "implication": "If you accept this, they can argue they did not promise the service would be fit for your needs, uninterrupted, or non-infringing.",
+          "section_reference": "13. Services “AS IS”"
+        },
+        {
+          "clause_text": "THE LAWS OF CERTAIN JURISDICTIONS OR STATES DO NOT ALLOW LIMITATIONS ON IMPLIED WARRANTIES. TO THE EXTENT SUCH WARRANTIES CANNOT BE DISCLAIMED UNDER THE LAWS OF YOUR JURISDICTION, WE LIMIT THE DURATION AND REMEDIES OF SUCH WARRANTIES TO THE FULL EXTENT PERMISSIBLE UNDER THOSE LAWS.",
+          "risk_level": "neutral",
+          "summary": "Where local law does not allow warranty disclaimers, Discord says any remaining warranties are narrowed as much as the law permits.",
+          "implication": "If you accept this, they can still try to cut down any non-waivable warranty rights to the maximum extent allowed where you live.",
+          "section_reference": "13. Services “AS IS”"
+        },
+        {
+          "clause_text": "WE DON’T EXCLUDE OR LIMIT OUR LIABILITY TO YOU WHERE IT WOULD BE ILLEGAL TO DO SO.",
+          "risk_level": "positive",
+          "summary": "Discord acknowledges that it cannot waive liability where the law forbids it.",
+          "implication": "If you accept this, they still cannot strip away protections that your local law makes non-waivable.",
+          "section_reference": "15. Limitation of liability"
+        },
+        {
+          "clause_text": "IN JURISDICTIONS WHERE THE BELOW TYPES OF EXCLUSIONS AREN’T ALLOWED, WE’RE RESPONSIBLE TO YOU ONLY FOR LOSSES AND DAMAGES THAT ARE A REASONABLY FORESEEABLE RESULT OF OUR FAILURE TO USE REASONABLE CARE AND SKILL OR OUR MATERIAL BREACH OF OUR CONTRACT WITH YOU. THIS PARAGRAPH DOESN’T AFFECT CONSUMER RIGHTS THAT CAN’T BE WAIVED OR LIMITED BY ANY CONTRACT OR AGREEMENT.",
+          "risk_level": "positive",
+          "summary": "In places that restrict liability waivers, Discord preserves at least some liability for foreseeable harm and says non-waivable consumer rights still apply.",
+          "implication": "If you accept this, they still may remain responsible where local consumer law protects you from broad liability disclaimers.",
+          "section_reference": "15. Limitation of liability"
+        },
+        {
+          "clause_text": "ANY RELIANCE YOU PLACE ON SUCH INFORMATION IS SOLELY AT YOUR OWN RISK.",
+          "risk_level": "moderate",
+          "summary": "Discord says you alone bear the risk of relying on information shown through the service.",
+          "implication": "If you accept this, they can argue they are not responsible if information on the platform turns out to be wrong or harmful to rely on.",
+          "section_reference": "15. Limitation of liability"
+        },
+        {
+          "clause_text": "NEITHER DISCORD, ITS AFFILIATES, NOR OUR SUPPLIERS ... WILL BE LIABLE ... FOR ANY INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES, OR DAMAGES FOR LOST PROFITS, LOST REVENUES, LOST SAVINGS, LOST BUSINESS OPPORTUNITY, LOSS OF DATA OR GOODWILL, SERVICE INTERRUPTION, COMPUTER DAMAGE OR SYSTEM FAILURE, OR THE COST OF SUBSTITUTE SERVICES OF ANY KIND ... WHETHER BASED ON WARRANTY, CONTRACT, STATUTE, TORT (INCLUDING NEGLIGENCE), PRODUCT LIABILITY, OR ANY OTHER LEGAL THEORY",
+          "risk_level": "critical",
+          "summary": "Discord broadly excludes many major categories of damages, including data loss, service interruption, system failure, and even negligence-based claims where law allows.",
+          "implication": "If you accept this, they can try to avoid paying for many of the most serious real-world losses you might suffer from using the service.",
+          "section_reference": "15. Limitation of liability"
+        },
+        {
+          "clause_text": "DISCORD LIMITS OUR LIABILITY TO YOU TO THE GREATER OF (A) THE AMOUNTS YOU HAVE PAID US IN THE THREE MONTHS BEFORE YOU FIRST ASSERT A CLAIM OR (B) $100 USD (OR THE EQUIVALENT IN YOUR LOCAL CURRENCY).",
+          "risk_level": "moderate",
+          "summary": "Even if Discord is liable, it caps what you can recover at either what you paid in the last three months or $100, whichever is higher.",
+          "implication": "If you accept this, your recovery may be limited to a very small amount even if your actual losses are much larger.",
+          "section_reference": "15. Limitation of liability"
+        },
+        {
+          "clause_text": "DISCORD ISN’T LIABLE FOR THE CONDUCT OR CONTENT, WHETHER ONLINE OR OFFLINE, OF ANY USER OF OUR SERVICES.",
+          "risk_level": "moderate",
+          "summary": "Discord disclaims responsibility for what other users do, whether on the platform or in real life.",
+          "implication": "If you accept this, they can argue they are not responsible for harm caused by other users’ behavior.",
+          "section_reference": "15. Limitation of liability"
+        },
+        {
+          "clause_text": "you agree that you will reach out to us and use good faith efforts to settle the Dispute informally through negotiation before initiating a lawsuit or arbitration.",
+          "risk_level": "moderate",
+          "summary": "Before suing or arbitrating, you must first go through Discord’s required informal dispute process.",
+          "implication": "If you accept this, you cannot immediately file a formal claim and must first follow their pre-dispute procedure.",
+          "section_reference": "16. Settling disputes between you and Discord - Informal Dispute Resolution"
+        },
+        {
+          "clause_text": "This Informal Dispute Resolution process, including your personal participation in the meet and confer is a prerequisite and condition precedent to commencing any formal dispute resolution proceeding.",
+          "risk_level": "moderate",
+          "summary": "You personally have to participate in the pre-dispute process before you can start arbitration or a lawsuit.",
+          "implication": "If you accept this, they can try to block or delay your claim if you do not complete their exact informal process first.",
+          "section_reference": "16. Settling disputes between you and Discord - Informal Dispute Resolution"
+        },
+        {
+          "clause_text": "These terms and all Disputes between you and Discord ... shall be governed by the law of the United States and the laws of California, without regard to conflicts of law provisions",
+          "risk_level": "moderate",
+          "summary": "Most disputes are governed by U.S. and California law, regardless of where you live, unless local law forbids that.",
+          "implication": "If you accept this, your dispute may be judged under California and U.S. law instead of the law that would otherwise apply where you live.",
+          "section_reference": "16. Governing Law, Jurisdiction, Class Action Waiver and Time Limitation - Choice of Law"
+        },
+        {
+          "clause_text": "the Dispute must be resolved exclusively by a court of competent jurisdiction, federal or state (including small claims court), located in the County of New Castle, Delaware, and no other court.",
+          "risk_level": "moderate",
+          "summary": "If a dispute is not arbitrated, it generally must be brought in courts in New Castle County, Delaware.",
+          "implication": "If you accept this, you may have to deal with a faraway court location instead of suing where you live.",
+          "section_reference": "16. Governing Law, Jurisdiction, Class Action Waiver and Time Limitation - Venue and Jurisdiction"
+        },
+        {
+          "clause_text": "If you are a consumer residing in the European Union, this clause and these terms in general do not affect any mandatory consumer rights you may have under your local law ... and/or these terms shall be submitted to the exclusive jurisdiction of the court of Amsterdam, the Netherlands or, if you are a consumer, to a court in your domicile if in an EU Member State.",
+          "risk_level": "positive",
+          "summary": "EU consumers keep mandatory local consumer rights and may sue in their home EU court.",
+          "implication": "If you accept this, EU consumer protections and local court access are expressly preserved for you.",
+          "section_reference": "16. Governing Law, Jurisdiction, Class Action Waiver and Time Limitation"
+        },
+        {
+          "clause_text": "You agree that any Dispute between you and Discord ... may only be pursued by you on an individual basis, and you may not bring a claim as a plaintiff or a class member in a class, collective, or representative action.",
+          "risk_level": "critical",
+          "summary": "You waive the ability to join or bring class, collective, or representative claims against Discord.",
+          "implication": "If you accept this, you generally have to fight Discord alone instead of joining with other users in a group case.",
+          "section_reference": "16. Governing Law, Jurisdiction, Class Action Waiver and Time Limitation - Class Action Waiver"
+        },
+        {
+          "clause_text": "No action, regardless of form, arising out of or relating to a Dispute may be brought by either Party more than one (1) year after the cause of action has accrued.",
+          "risk_level": "moderate",
+          "summary": "You get only one year to bring a claim, which may be shorter than the normal legal deadline.",
+          "implication": "If you accept this, you could lose your claim if you do not act within one year.",
+          "section_reference": "16. Governing Law, Jurisdiction, Class Action Waiver and Time Limitation - Time for Initiating a Claim"
+        },
+        {
+          "clause_text": "IF YOU’RE A U.S. OR CANADIAN RESIDENT YOU ALSO AGREE TO THE FOLLOWING “AGREEMENT TO ARBITRATE” WHICH CONTAINS MANDATORY ARBITRATION PROVISIONS.",
+          "risk_level": "critical",
+          "summary": "U.S. and Canadian users are put into mandatory arbitration unless they opt out in time.",
+          "implication": "If you accept this, you may lose the normal right to take disputes to court unless you properly opt out.",
+          "section_reference": "16. Agreement to Arbitrate"
+        },
+        {
+          "clause_text": "either Party may initiate binding arbitration as the sole means to resolve Disputes",
+          "risk_level": "critical",
+          "summary": "For covered users, arbitration is the main required forum for resolving disputes instead of court.",
+          "implication": "If you accept this, they can force your dispute out of court and into private arbitration.",
+          "section_reference": "16. Agreement to Arbitrate"
+        },
+        {
+          "clause_text": "The arbitrator, and not any federal, state, or local court or agency, shall have exclusive authority to resolve: (1) all Disputes; (2) whether a claim is subject to arbitration; and (3) any dispute regarding the payment of administrative or arbitrator fees",
+          "risk_level": "critical",
+          "summary": "The arbitrator, not a court, decides most gateway issues including whether your claim must be arbitrated.",
+          "implication": "If you accept this, it becomes harder to ask a court to decide whether Discord can force arbitration on your claim.",
+          "section_reference": "16. Agreement to Arbitrate"
+        },
+        {
+          "clause_text": "ARBITRATION MEANS THAT YOU WAIVE YOUR RIGHT TO A JURY TRIAL. In some instances, the costs of arbitration could exceed the costs of litigation and the right to discovery may be more limited in arbitration than in court.",
+          "risk_level": "critical",
+          "summary": "Discord explicitly says arbitration takes away your jury trial right and may be more expensive and more limited than court.",
+          "implication": "If you accept this, you give up a jury and may face a process with less evidence-gathering and potentially higher costs.",
+          "section_reference": "16. Agreement to Arbitrate"
+        },
+        {
+          "clause_text": "If you initiate an arbitration against Discord, costs will be determined in accordance with the Rules for the applicable arbitration provider, to the extent allowed by law. In all arbitrations, unless otherwise required by law or the arbitration provider’s rules, you are responsible for all other additional arbitration costs incurred, including attorney’s fees and expert witness costs.",
+          "risk_level": "moderate",
+          "summary": "If you start arbitration, you may have to pay provider fees and your own additional arbitration costs, including attorneys’ and expert fees.",
+          "implication": "If you accept this, bringing a claim may be expensive enough to discourage you from pursuing it.",
+          "section_reference": "16. Arbitration Costs"
+        },
+        {
+          "clause_text": "If the offer made by the offering Party is not accepted by the other Party, and the other Party fails to obtain a more favorable award, the other Party will not recover its post-offer costs and will pay the offering Party’s costs from the time of the offer.",
+          "risk_level": "moderate",
+          "summary": "If you reject a settlement offer and do worse in arbitration, you may have to pay the other side’s later costs.",
+          "implication": "If you accept this, turning down an offer could expose you to Discord’s post-offer costs if the result is not better for you.",
+          "section_reference": "16. Offer of Judgment"
+        },
+        {
+          "clause_text": "If Discord initiates arbitration, and for residents in Canada, arbitration shall be initiated in the County of New Castle, Delaware, United States of America, unless ... the designated arbitrator determines ... that such venue would be unreasonably burdensome",
+          "risk_level": "critical",
+          "summary": "Canadian users may be forced into arbitration in Delaware unless they successfully object and get the venue changed.",
+          "implication": "If you accept this, you may have to fight a dispute in a foreign location that is costly and inconvenient.",
+          "section_reference": "16. Arbitration Location"
+        },
+        {
+          "clause_text": "the Parties hereby waive any and all jurisdictional and venue defenses otherwise available.",
+          "risk_level": "moderate",
+          "summary": "You give up arguments that Delaware is the wrong place or court for arbitration-related proceedings.",
+          "implication": "If you accept this, it becomes harder to challenge Discord’s chosen forum as inconvenient or improper.",
+          "section_reference": "16. Arbitration Location"
+        },
+        {
+          "clause_text": "in the event 100 or more similar arbitration demands ... are submitted ... the Parties agree (i) to administer the Mass Filing in batches of 100 demands per batch ... with only one batch filed, processed, and adjudicated at a time",
+          "risk_level": "moderate",
+          "summary": "Large numbers of similar arbitration claims can be slowed down and processed in batches instead of all at once.",
+          "implication": "If you accept this, coordinated mass claims against Discord may move much more slowly.",
+          "section_reference": "16. Mass Filings"
+        },
+        {
+          "clause_text": "You can decline this Agreement to Arbitrate ... by emailing an opt-out notice to arbitration-opt-out@discord.com within 30 days of September 29, 2025 or when you first register your Discord account, whichever is later",
+          "risk_level": "positive",
+          "summary": "Discord gives users a clear 30-day email opt-out from arbitration.",
+          "implication": "If you accept this, you still have a defined chance to avoid arbitration if you act within the deadline.",
+          "section_reference": "16. Opt-out"
+        },
+        {
+          "clause_text": "You or Discord may still pursue claims, if they qualify, exclusively in a small claims court in the United States on an individual basis",
+          "risk_level": "positive",
+          "summary": "Small claims court remains available for qualifying disputes despite the arbitration clause.",
+          "implication": "If you accept this, you may still use small claims court for eligible individual cases.",
+          "section_reference": "16. Exceptions"
+        },
+        {
+          "clause_text": "UNLESS DISCORD AGREES OTHERWISE IN A SEPARATE WRITING, YOU AND DISCORD AGREE THAT EACH MAY BRING CLAIMS AGAINST THE OTHER ONLY IN OUR INDIVIDUAL CAPACITY, AND NOT AS A PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS OR REPRESENTATIVE PROCEEDING",
+          "risk_level": "critical",
+          "summary": "The arbitration clause separately bans class and representative arbitration too.",
+          "implication": "If you accept this, you generally cannot pursue arbitration together with other users as a class.",
+          "section_reference": "16. Class Arbitration and Collective Relief Waiver"
+        },
+        {
+          "clause_text": "Discord will provide 30 days’ notice of the date of any material changes to this Agreement to Arbitrate. Changes will become effective on the 30th day ... If you do not agree to such change, you may opt out of this Agreement to Arbitrate by emailing an opt-out notice",
+          "risk_level": "positive",
+          "summary": "Material arbitration changes require 30 days’ notice and give you a way to reject them by opting out.",
+          "implication": "If you accept this, they cannot silently change the arbitration clause without notice and a chance to reject it.",
+          "section_reference": "16. Changes to this Agreement to Arbitrate"
+        },
+        {
+          "clause_text": "If you continue to use our services after the changes have taken effect, it means that you agree to the changes. If you don’t agree, you must stop using our services.",
+          "risk_level": "moderate",
+          "summary": "Discord can change the terms and treat continued use as acceptance.",
+          "implication": "If you accept this, they can update legal terms later and bind you to them if you keep using Discord.",
+          "section_reference": "More important stuff - Updates to these terms"
+        },
+        {
+          "clause_text": "If these changes materially affect your Discord use or your legal rights, we’ll give you reasonable advance notice (unless the updates are urgent).",
+          "risk_level": "positive",
+          "summary": "Discord promises advance notice for material changes affecting your use or legal rights, except in urgent cases.",
+          "implication": "If you accept this, you should usually get warning before major legal changes take effect.",
+          "section_reference": "More important stuff - Updates to these terms"
+        },
+        {
+          "clause_text": "Apple has no obligation to furnish any maintenance and support services with respect to the Discord app. If the app fails to conform to any applicable warranty, you may notify Apple and Apple will refund the app purchase price to you (if applicable) and, to the maximum extent permitted by applicable law, Apple will have no other warranty obligation whatsoever with respect to the Discord app.",
+          "risk_level": "neutral",
+          "summary": "For iOS users, Apple disclaims ongoing support duties and limits its warranty obligations largely to a possible refund.",
+          "implication": "If you accept this, you generally cannot expect Apple to provide support or broader warranty remedies for the app.",
+          "section_reference": "Apple App Store"
+        },
+        {
+          "clause_text": "Apple is not responsible for addressing any claims by you or any third party relating to the Discord app ... Apple is not responsible for the investigation, defense, settlement and discharge of any third-party claim",
+          "risk_level": "neutral",
+          "summary": "Apple disclaims responsibility for legal claims related to the Discord app.",
+          "implication": "If you accept this, you generally cannot look to Apple to handle claims tied to your use of the Discord app.",
+          "section_reference": "Apple App Store"
+        }
+      ],
+      "summary": "This text contains several major consumer-rights limitations. The biggest ones are Discord’s broad indemnity clause, sweeping warranty disclaimers, a strong limitation-of-liability section with a very low damages cap, and mandatory arbitration plus class-action waivers for U.S. and Canadian users. There are some user-protective carve-outs—such as an arbitration opt-out, small-claims exception, and preservation of mandatory consumer rights in some jurisdictions—but overall the dispute and liability terms heavily favor Discord.",
+      "key_concerns": [
+        "You must cover Discord’s losses and legal costs if claims are tied to your use of the service, your content, your rule-breaking, or your negligence or misconduct.",
+        "Discord broadly excludes many major categories of damages, including data loss, service interruption, system failure, and even negligence-based claims where law allows.",
+        "You waive the ability to join or bring class, collective, or representative claims against Discord."
+      ]
+    }
+  ],
+  "document_title": "Discord Inc. — Terms of Service",
+  "company_name": "Discord Inc.",
+  "document_type": "Terms of Service",
+  "effective_date": "September 29, 2025",
+  "jurisdiction": "California, United States",
+  "completeness_score": 82,
+  "total_clauses_analyzed": 102,
+  "disclaimer": "This analysis is for informational purposes only and does not constitute legal advice. Always consult a qualified legal professional for specific legal questions or concerns."
+}
