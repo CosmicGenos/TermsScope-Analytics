@@ -54,7 +54,7 @@ jobs:
         run: curl -LsSf https://astral.sh/uv/install.sh | sh
 
       - name: Install Python dependencies
-        run: uv sync --dev
+        run: uv sync --extra dev
         working-directory: backend
 
       - name: Run database migrations
