@@ -6,7 +6,7 @@
 .env.production
 .claude/
 backend\.env
-backend\.env.docker 
+backend/.env.docker
 
 ## Python
 __pycache__/

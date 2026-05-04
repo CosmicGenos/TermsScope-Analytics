@@ -1,0 +1,20 @@
+alembic revision --autogenerate -m "message" : this will comapare what you have on you target on you applications and 
+what you have in ral database. and update that .
+
+If you need to add  stuff like "(like changing "Generated" → "Generating")" 
+you would have manually add them in to the upgrade() function like this 
+
+op.execute("""
+    UPDATE analyses
+    SET status = 'Generating'
+    WHERE status = 'Generated'
+""")
+
+alembic upgrade head - apply all migrations until the latest
+alembic downgrade -1 - go back one step
+alembic current  - see current DB version
+alembic history - see full migration chain
+
+Change models → generate migration → review/edit → apply → commit
+
+generate → edit upgrade → run upgrade head
