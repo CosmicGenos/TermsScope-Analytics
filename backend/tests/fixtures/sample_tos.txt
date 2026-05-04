@@ -1,0 +1,73 @@
+TERMS OF SERVICE
+
+Last Updated: January 1, 2025
+Effective Date: January 1, 2025
+
+PLEASE READ THESE TERMS OF SERVICE CAREFULLY BEFORE USING OUR SERVICES.
+
+1. ACCEPTANCE OF TERMS
+
+By accessing or using the services provided by SampleCorp Inc. ("Company", "we", "us", or "our"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, you may not access or use our services.
+
+2. DESCRIPTION OF SERVICES
+
+SampleCorp provides an online platform that allows users to access software tools, data storage, and related services ("Services"). We reserve the right to modify, suspend, or discontinue the Services at any time without prior notice.
+
+3. PRIVACY AND DATA COLLECTION
+
+3.1 Data Collection. We collect personal information including your name, email address, IP address, device identifiers, browsing history, and usage patterns. We may share this information with third-party advertising partners, analytics providers, and affiliated companies.
+
+3.2 Cookies and Tracking. We use cookies, web beacons, and similar tracking technologies to monitor your activity on our platform and across the internet. By using our Services, you consent to this tracking. You may not opt out of essential cookies.
+
+3.3 Data Retention. We retain your personal data indefinitely, or for as long as we determine necessary for our business purposes. We may retain data even after account deletion for up to seven (7) years.
+
+3.4 Third-Party Sharing. We may sell, license, or otherwise transfer your personal data to third parties for marketing and commercial purposes. We are not responsible for how third parties use your data once transferred.
+
+4. USER CONTENT AND DATA RIGHTS
+
+4.1 License Grant. By submitting content to our platform, you grant SampleCorp a worldwide, irrevocable, royalty-free, sublicensable license to use, reproduce, modify, adapt, publish, translate, distribute, and display your content in any form or medium.
+
+4.2 Data Portability. You may request an export of your data by submitting a written request to our support team. We will process your request within 90 days. We do not guarantee the format or completeness of exported data.
+
+4.3 Deletion Rights. You may request deletion of your account and associated data. Some data may be retained as required by law or our legitimate business interests. Deletion requests are processed within 60 days.
+
+5. PAYMENT AND BILLING
+
+5.1 Subscription Fees. Subscription fees are charged monthly in advance and are non-refundable under any circumstances, including if you cancel mid-period.
+
+5.2 Automatic Renewal. Your subscription automatically renews at the then-current rate unless cancelled at least 30 days before the renewal date. We may increase subscription prices at any time with 7 days notice.
+
+5.3 Late Payment. Accounts with overdue balances may be suspended immediately. A late fee of 5% per month will be applied to outstanding balances.
+
+6. CANCELLATION AND TERMINATION
+
+6.1 Cancellation by User. You may cancel your subscription at any time. Cancellation takes effect at the end of the current billing period. No refunds will be issued for unused portions of the subscription.
+
+6.2 Termination by Company. We may terminate your account and access to the Services at any time, for any reason or no reason, without notice and without refund. All data associated with terminated accounts may be permanently deleted.
+
+6.3 Effects of Termination. Upon termination, your right to use the Services ceases immediately. Provisions that by their nature should survive termination will survive, including intellectual property provisions, warranty disclaimers, and limitations of liability.
+
+7. DISCLAIMER OF WARRANTIES AND LIMITATION OF LIABILITY
+
+7.1 Disclaimer. THE SERVICES ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. WE EXPRESSLY DISCLAIM ALL WARRANTIES, WHETHER EXPRESS, IMPLIED, OR STATUTORY.
+
+7.2 Limitation of Liability. TO THE MAXIMUM EXTENT PERMITTED BY LAW, OUR TOTAL LIABILITY FOR ANY CLAIMS ARISING OUT OF OR RELATING TO THESE TERMS OR THE SERVICES SHALL NOT EXCEED THE AMOUNT PAID BY YOU IN THE THREE (3) MONTHS PRECEDING THE CLAIM.
+
+7.3 Indemnification. You agree to indemnify and hold harmless SampleCorp, its officers, directors, employees, and agents from any claims, liabilities, damages, costs, or expenses arising from your use of the Services or violation of these Terms.
+
+8. DISPUTE RESOLUTION AND ARBITRATION
+
+8.1 Binding Arbitration. ANY DISPUTE ARISING OUT OF OR RELATING TO THESE TERMS SHALL BE RESOLVED EXCLUSIVELY BY BINDING ARBITRATION. YOU WAIVE YOUR RIGHT TO A JURY TRIAL AND YOUR RIGHT TO PARTICIPATE IN CLASS ACTION LAWSUITS.
+
+8.2 Governing Law. These Terms shall be governed by the laws of the State of Delaware without regard to conflict of law principles.
+
+9. CHANGES TO TERMS
+
+We reserve the right to modify these Terms at any time. Changes become effective immediately upon posting. Your continued use of the Services after any changes constitutes acceptance of the new Terms.
+
+10. CONTACT INFORMATION
+
+SampleCorp Inc.
+123 Tech Street, Suite 100
+San Francisco, CA 94105
+legal@samplecorp.example.com

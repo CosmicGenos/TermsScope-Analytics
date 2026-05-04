@@ -67,37 +67,24 @@ services:
   # BACKEND — FastAPI application
   # ────────────────────────────────────────────────────────────
   backend:
-    # "build" tells compose to BUILD an image from a Dockerfile
-    # rather than pulling a pre-built one from Docker Hub.
+    # Both "build" and "image" are set:
+    #   - build: used locally with "docker compose up --build"
+    #   - image: used by "docker compose pull/push" to target Docker Hub
     build: ./backend
+    image: ${DOCKER_USERNAME}/termsscope-backend:latest
 
     ports:
       - "8000:8000"
 
-    # Load all environment variables from this file.
-    # The file is read on YOUR machine and injected into the container.
     env_file:
       - ./backend/.env.docker
 
-    # depends_on controls STARTUP ORDER.
-    # "service_healthy" waits until the healthcheck passes.
-    # Without this, the backend might start before postgres is ready.
     depends_on:
       postgres:
         condition: service_healthy
       redis:
         condition: service_healthy
 
-    # Volume mount for hot-reload during development.
-    # Your local ./backend/app folder is "mounted" into the container.
-    # Changes you make on your machine instantly appear inside the container.
-    # This is a DEV convenience — production wouldn't use this.
-    volumes:
-      - ./backend/app:/app/app
-
-    # This OVERRIDES the CMD in the Dockerfile.
-    # --reload makes uvicorn restart when Python files change.
-    # Perfect for development. Remove --reload in production.
     command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
 
   # ────────────────────────────────────────────────────────────
@@ -105,17 +92,13 @@ services:
   # ────────────────────────────────────────────────────────────
   frontend:
     build: ./frontend
+    image: ${DOCKER_USERNAME}/termsscope-frontend:latest
 
     ports:
       - "80:80"   # Access the app at http://localhost (port 80 is default HTTP)
 
-    # Start frontend after backend is up
     depends_on:
       - backend
-
-    # NOTE: No volumes here — unlike backend, we can't hot-reload
-    # a compiled React app. To see changes, rebuild the image.
-    # For dev, just run "npm run dev" directly (port 5173).
 
 
 # ────────────────────────────────────────────────────────────
