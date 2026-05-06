@@ -1,26 +1,5 @@
-# =============================================================
-# DOCKER COMPOSE — runs all services together
-# =============================================================
-# What is Docker Compose?
-#   A tool to define and run MULTIPLE containers as one stack.
-#   Instead of running 4 separate docker commands, you run one:
-#     docker compose up
-#
-# How containers talk to each other:
-#   Inside this compose file, each service name IS the hostname.
-#   So the backend connects to postgres at "postgres:5432"
-#   NOT at "localhost:5432" — localhost means the container itself.
-#
-# Port mapping syntax:  "HOST:CONTAINER"
-#   "8000:8000" means: your computer's port 8000 → container's port 8000
-#   "5432:5432" means: your computer's port 5432 → container's port 5432
-# =============================================================          
-
 services:
 
-  # ────────────────────────────────────────────────────────────
-  # POSTGRES — the relational database
-  # ────────────────────────────────────────────────────────────
   postgres:
     # Use the official postgres image — no build needed
     image: postgres:16-alpine
@@ -48,9 +27,7 @@ services:
       timeout: 3s     # Wait max 3 seconds for a response
       retries: 5      # Mark unhealthy after 5 consecutive failures
 
-  # ────────────────────────────────────────────────────────────
-  # REDIS — the cache / session store
-  # ────────────────────────────────────────────────────────────
+
   redis:
     image: redis:7-alpine
 
@@ -63,9 +40,7 @@ services:
       timeout: 3s
       retries: 5
 
-  # ────────────────────────────────────────────────────────────
-  # BACKEND — FastAPI application
-  # ────────────────────────────────────────────────────────────
+
   backend:
     # Both "build" and "image" are set:
     #   - build: used locally with "docker compose up --build"
@@ -87,9 +62,7 @@ services:
 
     command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
 
-  # ────────────────────────────────────────────────────────────
-  # FRONTEND — React app served by nginx
-  # ────────────────────────────────────────────────────────────
+
   frontend:
     build: ./frontend
     image: ${DOCKER_USERNAME}/termsscope-frontend:latest
@@ -101,9 +74,6 @@ services:
       - backend
 
 
-# ────────────────────────────────────────────────────────────
-# NAMED VOLUMES declaration
-# ────────────────────────────────────────────────────────────
 # You must declare named volumes here at the top level.
 # Docker creates and manages these automatically.
 volumes:

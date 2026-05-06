@@ -8,11 +8,6 @@ on:
 
 jobs:
 
-  # ============================================================
-  # JOB 1 — Run tests
-  # Spins up real postgres + redis so tests hit actual services.
-  # If any test fails the build and deploy jobs are skipped.
-  # ============================================================
   test:
     runs-on: ubuntu-latest
 
@@ -65,11 +60,6 @@ jobs:
         run: uv run pytest tests/ -v
         working-directory: backend
 
-  # ============================================================
-  # JOB 2 — Build Docker images and push to Docker Hub
-  # Uses GitHub Actions layer cache so only changed layers
-  # are rebuilt on subsequent runs (saves 2–5 min per push).
-  # ============================================================
   build-and-push:
     runs-on: ubuntu-latest
     needs: test
@@ -105,12 +95,6 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  # ============================================================
-  # JOB 3 — Deploy to DigitalOcean Droplet via SSH
-  # Pulls the freshly-pushed images and restarts containers.
-  # The explicit -f flag skips docker-compose.override.yml so
-  # dev volume mounts are never applied in production.
-  # ============================================================
   # deploy:
   #   runs-on: ubuntu-latest
   #   needs: build-and-push
