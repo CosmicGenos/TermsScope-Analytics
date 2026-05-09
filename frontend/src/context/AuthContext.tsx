@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { getCurrentUser } from '../services/api';
+import AuthModal from '../components/AuthModal';
 
 interface User {
   id: string;
@@ -14,7 +15,8 @@ interface AuthContextType {
   token: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: () => void;
+  loginWithGoogle: () => void;
+  openAuthModal: (mode?: 'signup' | 'signin') => void;
   logout: () => void;
   setToken: (token: string) => void;
 }
@@ -27,6 +29,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.getItem('termsscope_token')
   );
   const [isLoading, setIsLoading] = useState(!!localStorage.getItem('termsscope_token'));
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState<'signup' | 'signin'>('signup');
 
   const setToken = useCallback((newToken: string) => {
     localStorage.setItem('termsscope_token', newToken);
@@ -39,10 +43,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUser(null);
   }, []);
 
-  const login = useCallback(() => {
-    // Redirect to backend Google OAuth endpoint
+  const loginWithGoogle = useCallback(() => {
     window.location.href = '/api/auth/google/login';
   }, []);
+
+  const openAuthModal = useCallback((mode: 'signup' | 'signin' = 'signup') => {
+    setModalMode(mode);
+    setModalOpen(true);
+  }, []);
+  const closeAuthModal = useCallback(() => setModalOpen(false), []);
 
   // Hydrate user on mount or token change
   useEffect(() => {
@@ -57,28 +66,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     getCurrentUser()
       .then((res) => {
-        if (!cancelled) {
-          setUser(res.data);
-        }
+        if (!cancelled) setUser(res.data);
       })
       .catch(() => {
         if (!cancelled) {
-          // Token is invalid
           localStorage.removeItem('termsscope_token');
           setTokenState(null);
           setUser(null);
         }
       })
       .finally(() => {
-        if (!cancelled) {
-          setIsLoading(false);
-        }
+        if (!cancelled) setIsLoading(false);
       });
 
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, [token]);
+
+  // Close modal automatically after a successful login
+  useEffect(() => {
+    if (user && modalOpen) closeAuthModal();
+  }, [user, modalOpen, closeAuthModal]);
 
   return (
     <AuthContext.Provider
@@ -87,12 +94,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         token,
         isAuthenticated: !!user,
         isLoading,
-        login,
+        loginWithGoogle,
+        openAuthModal,
         logout,
         setToken,
       }}
     >
       {children}
+      {modalOpen && <AuthModal onClose={closeAuthModal} initialMode={modalMode} />}
     </AuthContext.Provider>
   );
 };

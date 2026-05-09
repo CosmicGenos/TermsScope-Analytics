@@ -6,6 +6,7 @@ import AnalyzingPage from './pages/AnalyzingPage';
 import ResultsPage from './pages/ResultsPage';
 import HistoryPage from './pages/HistoryPage';
 import AuthCallbackPage from './pages/AuthCallbackPage';
+import LoginPage from './pages/LoginPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/results/:id" element={<ResultsPage />} />
             <Route path="/history" element={<HistoryPage />} />
             <Route path="/auth/callback" element={<AuthCallbackPage />} />
+            <Route path="/login" element={<LoginPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

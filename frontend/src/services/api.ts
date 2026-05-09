@@ -110,4 +110,10 @@ export const getHistoryItem = (analysisId: string) =>
 export const getCurrentUser = () =>
   api.get('/auth/me');
 
+export const loginWithEmail = (email: string, password: string) =>
+  api.post<{ token: string }>('/auth/login', { email, password });
+
+export const registerWithEmail = (name: string, email: string, password: string) =>
+  api.post<{ token: string }>('/auth/register', { name, email, password });
+
 export default api;

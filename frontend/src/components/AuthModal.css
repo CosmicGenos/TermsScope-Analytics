@@ -1,0 +1,315 @@
+/* ─── Auth Modal ──────────────────────────────────────────── */
+
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  animation: fadeIn 0.2s ease;
+}
+
+.auth-modal {
+  width: 100%;
+  max-width: 420px;
+  background: #13181a;
+  border: 1px solid var(--border-color-hover);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-lg), 0 0 60px rgba(30, 215, 96, 0.06);
+  animation: authModalIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+@keyframes authModalIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── Header ── */
+.auth-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.auth-modal__tabs {
+  display: flex;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  padding: 3px;
+  gap: 2px;
+}
+
+.auth-modal__tab {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  padding: 6px 18px;
+  border-radius: var(--radius-full);
+  transition: color var(--transition-fast), background var(--transition-fast);
+  white-space: nowrap;
+}
+
+.auth-modal__tab--active {
+  background: var(--color-primary);
+  color: #0a0f0a;
+}
+
+.auth-modal__tab:not(.auth-modal__tab--active):hover {
+  color: var(--text-secondary);
+}
+
+.auth-modal__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--transition-fast), background var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.auth-modal__close:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Title ── */
+.auth-modal__title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.auth-modal__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.auth-modal__subtitle {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ── Form ── */
+.auth-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* Full name slide animation */
+.auth-modal__field-wrap {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.25s ease,
+    margin 0.3s ease;
+  margin-bottom: 0;
+}
+
+.auth-modal__field-wrap--visible {
+  max-height: 90px;
+  opacity: 1;
+}
+
+.auth-modal__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.auth-modal__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.auth-modal__input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.9375rem;
+  padding: 10px 14px;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.auth-modal__input::placeholder {
+  color: var(--text-muted);
+}
+
+.auth-modal__input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(30, 215, 96, 0.12);
+}
+
+/* Password field with eye toggle */
+.auth-modal__password-wrap {
+  position: relative;
+}
+
+.auth-modal__password-wrap .auth-modal__input {
+  padding-right: 42px;
+}
+
+.auth-modal__eye {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  transition: color var(--transition-fast);
+}
+
+.auth-modal__eye:hover {
+  color: var(--text-secondary);
+}
+
+/* Error */
+.auth-modal__error {
+  font-size: 0.8125rem;
+  color: var(--color-critical);
+  background: var(--color-critical-bg);
+  border: 1px solid rgba(255, 71, 87, 0.2);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  line-height: 1.4;
+}
+
+/* Submit */
+.auth-modal__submit {
+  width: 100%;
+  padding: 11px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-top: 2px;
+}
+
+.auth-modal__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Spinner */
+.auth-modal__spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(10, 15, 10, 0.3);
+  border-top-color: #0a0f0a;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Divider ── */
+.auth-modal__divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.auth-modal__divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border-color);
+}
+
+.auth-modal__divider-text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+/* ── Google button ── */
+.auth-modal__google {
+  width: 100%;
+  justify-content: center;
+  gap: 10px;
+  padding: 11px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+/* ── Switch mode link ── */
+.auth-modal__switch {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.auth-modal__switch-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
+  color: var(--color-primary);
+  padding: 0;
+  transition: color var(--transition-fast);
+}
+
+.auth-modal__switch-btn:hover {
+  color: var(--color-primary-light);
+}
+
+/* ── Mobile ── */
+@media (max-width: 480px) {
+  .auth-modal {
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+  }
+}
