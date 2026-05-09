@@ -16,8 +16,8 @@
 .hero__badge {
   display: inline-block;
   padding: 4px 14px;
-  background: rgba(30, 215, 96, 0.08);
-  border: 1px solid rgba(30, 215, 96, 0.18);
+  background: rgba(22, 163, 74, 0.07);
+  border: 1px solid rgba(22, 163, 74, 0.18);
   border-radius: var(--radius-full);
   font-size: 0.75rem;
   font-weight: 600;
@@ -52,24 +52,26 @@
   max-width: 620px;
   margin: 0 auto;
   padding: var(--space-lg);
+  background: #fafaf8 !important;
 }
 
 .input-tabs {
   display: flex;
-  gap: 2px;
+  gap: 3px;
   margin-bottom: var(--space-lg);
-  background: rgba(255, 255, 255, 0.03);
-  padding: 3px;
+  background: rgba(0, 0, 0, 0.08);
+  padding: 4px;
   border-radius: var(--radius-sm);
+  border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .input-tab {
   flex: 1;
-  padding: 7px var(--space-sm);
+  padding: 8px var(--space-sm);
   font-family: inherit;
   font-size: 0.825rem;
   font-weight: 500;
-  color: var(--text-muted);
+  color: rgba(0, 0, 0, 0.38);
   background: transparent;
   border: none;
   border-radius: 4px;
@@ -79,12 +81,14 @@
 }
 
 .input-tab:hover {
-  color: var(--text-secondary);
+  color: rgba(0, 0, 0, 0.58);
 }
 
 .input-tab--active {
-  background: rgba(255, 255, 255, 0.07);
+  background: #ffffff;
   color: var(--text-primary);
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.14), 0 0 0 1px rgba(0, 0, 0, 0.06);
 }
 
 .input-form {
@@ -117,8 +121,8 @@
   display: inline-block;
   width: 14px;
   height: 14px;
-  border: 2px solid rgba(10, 15, 10, 0.3);
-  border-top-color: #0a0f0a;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #ffffff;
   border-radius: 50%;
   animation: spin 0.6s linear infinite;
   flex-shrink: 0;
@@ -152,7 +156,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(30, 215, 96, 0.12);
+  background: rgba(22, 163, 74, 0.1);
   color: var(--color-primary);
   border-radius: 50%;
   font-size: 0.75rem;

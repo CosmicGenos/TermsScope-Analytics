@@ -3,36 +3,36 @@
 
 /* ─── CSS Custom Properties ──────────────────────────────── */
 :root {
-  /* Brand Colors — Green */
-  --color-primary: #1ed760;
-  --color-primary-light: #3de375;
-  --color-primary-dark: #17b34d;
+  /* Brand Colors — Green (darkened for light bg contrast) */
+  --color-primary: #16a34a;
+  --color-primary-light: #22c55e;
+  --color-primary-dark: #15803d;
 
   /* Risk Colors */
-  --color-critical: #ff4757;
-  --color-critical-bg: rgba(255, 71, 87, 0.1);
-  --color-moderate: #ffa502;
-  --color-moderate-bg: rgba(255, 165, 2, 0.1);
-  --color-positive: #1ed760;
-  --color-positive-bg: rgba(30, 215, 96, 0.1);
-  --color-neutral: #747d8c;
-  --color-neutral-bg: rgba(116, 125, 140, 0.1);
+  --color-critical: #dc2626;
+  --color-critical-bg: rgba(220, 38, 38, 0.08);
+  --color-moderate: #b07035;
+  --color-moderate-bg: rgba(176, 112, 53, 0.08);
+  --color-positive: #16a34a;
+  --color-positive-bg: rgba(22, 163, 74, 0.08);
+  --color-neutral: #6b7280;
+  --color-neutral-bg: rgba(107, 114, 128, 0.08);
 
-  /* Backgrounds */
-  --bg-primary: #0a0f0a;
-  --bg-secondary: #111618;
-  --bg-card: rgba(255, 255, 255, 0.04);
-  --bg-card-hover: rgba(255, 255, 255, 0.06);
-  --bg-glass: rgba(255, 255, 255, 0.04);
+  /* Backgrounds — warm cream/white */
+  --bg-primary: #f8f7f4;
+  --bg-secondary: #f0efe9;
+  --bg-card: rgba(255, 255, 255, 0.75);
+  --bg-card-hover: rgba(255, 255, 255, 0.95);
+  --bg-glass: rgba(255, 255, 255, 0.65);
 
   /* Text */
-  --text-primary: #f1f1f3;
-  --text-secondary: #9a9aaa;
-  --text-muted: #5a5a6e;
+  --text-primary: #111827;
+  --text-secondary: #6b6b7e;
+  --text-muted: #9ca3af;
 
   /* Borders */
-  --border-color: rgba(255, 255, 255, 0.07);
-  --border-color-hover: rgba(255, 255, 255, 0.13);
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-color-hover: rgba(0, 0, 0, 0.15);
 
   /* Spacing */
   --space-xs: 4px;
@@ -51,10 +51,10 @@
   --radius-full: 9999px;
 
   /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 24px rgba(30, 215, 96, 0.08);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 24px rgba(22, 163, 74, 0.1);
 
   /* Transitions */
   --transition-fast: 150ms ease;
@@ -99,9 +99,11 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background:
-    radial-gradient(ellipse 70% 40% at 50% -10%, rgba(30, 215, 96, 0.05), transparent),
-    radial-gradient(ellipse 50% 30% at 90% 90%, rgba(30, 215, 96, 0.03), transparent);
+  background: radial-gradient(
+    ellipse 70% 40% at 50% -5%,
+    rgba(22, 163, 74, 0.05),
+    transparent
+  );
   pointer-events: none;
   z-index: 0;
 }
@@ -119,6 +121,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
+  color: var(--text-primary);
 }
 
 h1 { font-size: 3rem; }
@@ -131,13 +134,13 @@ p {
 }
 
 a {
-  color: var(--color-primary-light);
+  color: var(--color-primary);
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
 a:hover {
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
 }
 
 /* ─── Utility Classes ────────────────────────────────────── */
@@ -149,17 +152,14 @@ a:hover {
 }
 
 .glass-card {
-  background: var(--bg-glass);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-color);
+  background: #f0efeb;
+  border: 1.5px solid rgba(0, 0, 0, 0.18);
   border-radius: var(--radius-lg);
   transition: all var(--transition-base);
 }
 
 .glass-card:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--border-color-hover);
+  border-color: rgba(0, 0, 0, 0.28);
 }
 
 /* ─── Buttons ────────────────────────────────────────────── */
@@ -185,13 +185,21 @@ a:hover {
   cursor: not-allowed;
 }
 
+.btn-primary:disabled {
+  background: #e5e7eb;
+  color: #9ca3af;
+  opacity: 1;
+  transform: none;
+  box-shadow: none;
+}
+
 .btn-primary {
   background: var(--color-primary);
-  color: #0a0f0a;
+  color: #ffffff;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: var(--color-primary-light);
+  background: var(--color-primary-dark);
   transform: translateY(-1px);
 }
 
@@ -200,13 +208,13 @@ a:hover {
 }
 
 .btn-secondary {
-  background: var(--bg-card);
+  background: rgba(0, 0, 0, 0.04);
   color: var(--text-primary);
   border: 1px solid var(--border-color);
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background: var(--bg-card-hover);
+  background: rgba(0, 0, 0, 0.07);
   border-color: var(--border-color-hover);
 }
 
@@ -217,31 +225,33 @@ a:hover {
 
 .btn-ghost:hover:not(:disabled) {
   color: var(--text-primary);
-  background: var(--bg-card);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .btn-google {
-  background: rgba(255, 255, 255, 0.07);
+  background: #ffffff;
   color: var(--text-primary);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.14);
   font-weight: 500;
   font-size: 0.875rem;
   padding: var(--space-sm) var(--space-md);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-google:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.11);
-  border-color: rgba(255, 255, 255, 0.18);
+  background: #f9f9f9;
+  border-color: rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-md);
 }
 
 .btn-danger {
-  background: rgba(255, 71, 87, 0.12);
-  color: #ff6b7a;
-  border: 1px solid rgba(255, 71, 87, 0.2);
+  background: rgba(220, 38, 38, 0.08);
+  color: #dc2626;
+  border: 1px solid rgba(220, 38, 38, 0.18);
 }
 
 .btn-danger:hover:not(:disabled) {
-  background: rgba(255, 71, 87, 0.2);
+  background: rgba(220, 38, 38, 0.14);
 }
 
 /* ─── Inputs ─────────────────────────────────────────────── */
@@ -252,8 +262,8 @@ a:hover {
   font-family: inherit;
   font-size: 0.95rem;
   color: var(--text-primary);
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.11);
   border-radius: var(--radius-md);
   outline: none;
   transition: all var(--transition-fast);
@@ -261,8 +271,8 @@ a:hover {
 
 .input:focus,
 .textarea:focus {
-  border-color: rgba(30, 215, 96, 0.35);
-  box-shadow: 0 0 0 3px rgba(30, 215, 96, 0.07);
+  border-color: rgba(22, 163, 74, 0.45);
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.08);
 }
 
 .input::placeholder,
@@ -294,7 +304,7 @@ a:hover {
 
 @keyframes pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.6; transform: scale(0.85); }
+  50%       { opacity: 0.5; transform: scale(0.8); }
 }
 
 @keyframes shimmer {
@@ -311,17 +321,9 @@ a:hover {
   40%            { opacity: 1; }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.4s ease forwards;
-}
-
-.animate-fade-in-up {
-  animation: fadeInUp 0.5s ease forwards;
-}
-
-.animate-slide-right {
-  animation: slideInRight 0.35s ease forwards;
-}
+.animate-fade-in     { animation: fadeIn 0.4s ease forwards; }
+.animate-fade-in-up  { animation: fadeInUp 0.5s ease forwards; }
+.animate-slide-right { animation: slideInRight 0.35s ease forwards; }
 
 /* Stagger delays */
 .delay-1 { animation-delay: 0.08s; opacity: 0; }
@@ -334,11 +336,11 @@ a:hover {
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.14);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(0, 0, 0, 0.22);
 }
 
 /* ─── Responsive ─────────────────────────────────────────── */
@@ -346,10 +348,7 @@ a:hover {
   h1 { font-size: 2rem; }
   h2 { font-size: 1.5rem; }
   h3 { font-size: 1.2rem; }
-
-  .container {
-    padding: 0 var(--space-md);
-  }
+  .container { padding: 0 var(--space-md); }
 }
 
 @media (max-width: 480px) {

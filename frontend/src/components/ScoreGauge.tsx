@@ -60,9 +60,6 @@ const ScoreGauge: React.FC<ScoreGaugeProps> = ({ score, size = 200, label = 'Tru
           strokeDasharray={circumference}
           strokeDashoffset={strokeDashoffset}
           transform={`rotate(-90 ${size / 2} ${size / 2})`}
-          style={{
-            filter: `drop-shadow(0 0 8px ${color})`,
-          }}
         />
       </svg>
       <div className="score-gauge__content">

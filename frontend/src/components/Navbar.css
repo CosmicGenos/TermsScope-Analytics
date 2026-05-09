@@ -4,7 +4,7 @@
   top: 0;
   z-index: 100;
   height: var(--navbar-height);
-  background: rgba(10, 15, 10, 0.85);
+  background: rgba(248, 247, 244, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border-color);
@@ -61,12 +61,12 @@
 
 .navbar__link:hover {
   color: var(--text-primary);
-  background: var(--bg-card);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .navbar__link--active {
   color: var(--text-primary);
-  background: var(--bg-card);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .navbar__auth {
@@ -108,7 +108,7 @@
 .signout-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.65);
+  background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   z-index: 500;
@@ -119,12 +119,13 @@
 }
 
 .signout-modal {
-  background: #161d16;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: var(--radius-xl);
   padding: var(--space-xl);
   width: calc(100% - var(--space-2xl));
   max-width: 340px;
+  box-shadow: var(--shadow-lg);
   animation: fadeInUp 0.2s ease forwards;
 }
 
