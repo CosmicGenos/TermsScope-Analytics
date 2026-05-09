@@ -1,23 +1,65 @@
 import React, { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useAnalysis } from '../hooks/useAnalysis';
-import ProgressBar from '../components/ProgressBar';
 import './AnalyzingPage.css';
+
+type InputType = 'url' | 'text' | 'file';
+
+interface Stage {
+  getLabel: (type: InputType) => string;
+  shortLabel: string;
+  doneAt: number;
+}
+
+const STAGES: Stage[] = [
+  {
+    getLabel: (type) =>
+      type === 'url'
+        ? 'Fetching from the web'
+        : type === 'file'
+        ? 'Reading your file'
+        : 'Preparing your text',
+    shortLabel: 'Fetching',
+    doneAt: 10,
+  },
+  {
+    getLabel: () => 'Checking the content',
+    shortLabel: 'Checking',
+    doneAt: 30,
+  },
+  {
+    getLabel: () => 'Scanning through the terms',
+    shortLabel: 'Scanning',
+    doneAt: 80,
+  },
+  {
+    getLabel: () => 'Preparing your report',
+    shortLabel: 'Preparing',
+    doneAt: 100,
+  },
+];
+
+function getStageIndex(progress: number): number {
+  if (progress <= 10) return 0;
+  if (progress <= 30) return 1;
+  if (progress <= 80) return 2;
+  return 3;
+}
 
 const AnalyzingPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { status, progress, message, result, error, streamProgress } = useAnalysis();
+  const location = useLocation();
+  const inputType: InputType = (location.state as { inputType?: InputType })?.inputType ?? 'url';
+
+  const { status, progress, result, error, streamProgress } = useAnalysis();
 
   useEffect(() => {
-    if (id) {
-      streamProgress(id);
-    }
+    if (id) streamProgress(id);
   }, [id, streamProgress]);
 
   useEffect(() => {
     if (status === 'complete' && id) {
-      // Short delay for visual satisfaction
       const timer = setTimeout(() => {
         navigate(`/results/${id}`, { state: { result } });
       }, 800);
@@ -29,13 +71,13 @@ const AnalyzingPage: React.FC = () => {
     return (
       <div className="analyzing-page">
         <div className="container">
-          <div className="analyzing-content glass-card animate-fade-in">
+          <div className="analyzing-content animate-fade-in">
             <div className="analyzing-error">
-              <span className="analyzing-error__icon">❌</span>
-              <h2>Analysis Failed</h2>
+              <div className="analyzing-error__icon">⚠</div>
+              <h2>Analysis failed</h2>
               <p>{error}</p>
               <button className="btn btn-primary" onClick={() => navigate('/')}>
-                ← Try Again
+                Try again
               </button>
             </div>
           </div>
@@ -44,51 +86,92 @@ const AnalyzingPage: React.FC = () => {
     );
   }
 
+  const currentStageIndex = getStageIndex(progress);
+  const isComplete = status === 'complete';
+  const currentLabel = isComplete
+    ? 'Analysis complete'
+    : STAGES[currentStageIndex].getLabel(inputType);
+
+  const clampedProgress = Math.min(100, Math.max(0, progress));
+
   return (
     <div className="analyzing-page">
       <div className="container">
-        <div className="analyzing-content glass-card animate-fade-in">
-          <div className="analyzing-visual">
-            <div className="analyzing-rings">
-              <div className="analyzing-ring analyzing-ring--1" />
-              <div className="analyzing-ring analyzing-ring--2" />
-              <div className="analyzing-ring analyzing-ring--3" />
-              <div className="analyzing-center">🔍</div>
+        <div className="analyzing-content animate-fade-in">
+
+          {/* Current stage label — the hero */}
+          <div className="analyzing-headline">
+            <span className="analyzing-headline__text">{currentLabel}</span>
+            {!isComplete && (
+              <span className="analyzing-ellipsis" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </span>
+            )}
+          </div>
+
+          {/* Progress bar + percentage */}
+          <div className="analyzing-bar-wrapper">
+            <div className="analyzing-bar-track">
+              <div
+                className={`analyzing-bar-fill${isComplete ? ' analyzing-bar-fill--complete' : ''}`}
+                style={{ width: `${clampedProgress}%` }}
+              />
             </div>
+            <span className="analyzing-percentage">{Math.round(clampedProgress)}%</span>
           </div>
 
-          <h2 className="analyzing-title">
-            {status === 'complete' ? 'Analysis Complete!' : 'Analyzing Document...'}
-          </h2>
-
-          <div className="analyzing-progress">
-            <ProgressBar progress={progress} message={message} />
+          {/* Stage nodes — desktop */}
+          <div className="analyzing-stages" aria-hidden="true">
+            {STAGES.map((stage, i) => {
+              const isDone = isComplete || progress > stage.doneAt || i < currentStageIndex;
+              const isActive = !isComplete && i === currentStageIndex;
+              return (
+                <React.Fragment key={i}>
+                  {i > 0 && (
+                    <div
+                      className={`analyzing-connector${isDone || i <= currentStageIndex ? ' analyzing-connector--lit' : ''}`}
+                    />
+                  )}
+                  <div className="analyzing-node">
+                    <div
+                      className={`analyzing-dot${isDone ? ' analyzing-dot--done' : isActive ? ' analyzing-dot--active' : ''}`}
+                    >
+                      {isDone && <CheckIcon />}
+                    </div>
+                    <span
+                      className={`analyzing-node-label${isDone ? ' analyzing-node-label--done' : isActive ? ' analyzing-node-label--active' : ''}`}
+                    >
+                      {stage.shortLabel}
+                    </span>
+                  </div>
+                </React.Fragment>
+              );
+            })}
           </div>
 
-          <div className="analyzing-stages">
-            <StageIndicator label="Fetch" done={progress > 5} active={progress <= 5} />
-            <StageIndicator label="Validate" done={progress > 15} active={progress > 5 && progress <= 15} />
-            <StageIndicator label="Chunk" done={progress > 25} active={progress > 15 && progress <= 25} />
-            <StageIndicator label="Analyze" done={progress > 40} active={progress > 25 && progress <= 80} />
-            <StageIndicator label="Compile" done={progress >= 100} active={progress > 80 && progress < 100} />
+          {/* Step counter — shown on all sizes, primary on mobile */}
+          <div className="analyzing-step-count">
+            Step {Math.min(currentStageIndex + 1, 4)} of 4
           </div>
+
         </div>
       </div>
     </div>
   );
 };
 
-const StageIndicator: React.FC<{ label: string; done: boolean; active: boolean }> = ({
-  label,
-  done,
-  active,
-}) => (
-  <div className={`stage ${done ? 'stage--done' : ''} ${active ? 'stage--active' : ''}`}>
-    <div className="stage__dot">
-      {done ? '✓' : active ? <span className="stage__pulse" /> : ''}
-    </div>
-    <span className="stage__label">{label}</span>
-  </div>
+const CheckIcon: React.FC = () => (
+  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+    <path
+      d="M1.5 5l2.5 2.5 4.5-4.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
 );
 
 export default AnalyzingPage;

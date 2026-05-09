@@ -14,6 +14,76 @@ interface HistoryItem {
   created_at: string | null;
 }
 
+type DateGroup = 'Today' | 'Yesterday' | 'This week' | 'Earlier';
+
+function groupByDate(items: HistoryItem[]): Array<{ label: DateGroup; items: HistoryItem[] }> {
+  const now = new Date();
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const startOfYesterday = new Date(startOfToday);
+  startOfYesterday.setDate(startOfYesterday.getDate() - 1);
+  const startOfWeek = new Date(startOfToday);
+  startOfWeek.setDate(startOfWeek.getDate() - 7);
+
+  const buckets: Record<DateGroup, HistoryItem[]> = {
+    Today: [],
+    Yesterday: [],
+    'This week': [],
+    Earlier: [],
+  };
+
+  for (const item of items) {
+    if (!item.created_at) {
+      buckets.Earlier.push(item);
+      continue;
+    }
+    const d = new Date(item.created_at);
+    const dayStart = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+
+    if (dayStart >= startOfToday) {
+      buckets.Today.push(item);
+    } else if (dayStart >= startOfYesterday) {
+      buckets.Yesterday.push(item);
+    } else if (dayStart >= startOfWeek) {
+      buckets['This week'].push(item);
+    } else {
+      buckets.Earlier.push(item);
+    }
+  }
+
+  return (['Today', 'Yesterday', 'This week', 'Earlier'] as DateGroup[])
+    .filter((label) => buckets[label].length > 0)
+    .map((label) => ({ label, items: buckets[label] }));
+}
+
+function getRiskBadge(score: number | null) {
+  if (score === null) return null;
+  if (score >= 70) return { label: 'Low risk', cls: 'badge--low' };
+  if (score >= 40) return { label: 'Med risk', cls: 'badge--med' };
+  return { label: 'High risk', cls: 'badge--high' };
+}
+
+function formatTime(dateStr: string | null): string {
+  if (!dateStr) return '';
+  return new Date(dateStr).toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}
+
+function formatDate(dateStr: string | null): string {
+  if (!dateStr) return '';
+  return new Date(dateStr).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+  });
+}
+
+const INPUT_ICONS: Record<string, string> = {
+  url: '🔗',
+  file: '📄',
+  text: '📝',
+};
+
 const HistoryPage: React.FC = () => {
   const { isAuthenticated, isLoading: authLoading } = useAuth();
   const navigate = useNavigate();
@@ -30,42 +100,18 @@ const HistoryPage: React.FC = () => {
     if (isAuthenticated) {
       setIsLoading(true);
       getHistory()
-        .then((res) => {
-          setItems(res.data.items);
-        })
-        .catch((err) => {
-          setError(err.response?.data?.detail || 'Failed to load history.');
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+        .then((res) => setItems(res.data.items))
+        .catch((err) => setError(err.response?.data?.detail || 'Failed to load history.'))
+        .finally(() => setIsLoading(false));
     }
   }, [isAuthenticated, authLoading, navigate]);
-
-  const getScoreColor = (score: number | null): string => {
-    if (score === null) return 'var(--text-muted)';
-    if (score >= 70) return 'var(--color-positive)';
-    if (score >= 40) return 'var(--color-moderate)';
-    return 'var(--color-critical)';
-  };
-
-  const formatDate = (dateStr: string | null): string => {
-    if (!dateStr) return '';
-    return new Date(dateStr).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
 
   if (authLoading || isLoading) {
     return (
       <div className="history-page">
         <div className="container">
           <div className="history-loading animate-fade-in">
-            <span className="spinner" />
+            <span className="spinner spinner--light" />
             <p>Loading history...</p>
           </div>
         </div>
@@ -73,63 +119,75 @@ const HistoryPage: React.FC = () => {
     );
   }
 
+  const groups = groupByDate(items);
+
   return (
     <div className="history-page">
       <div className="container">
         <div className="history-header animate-fade-in">
-          <h1>Analysis History</h1>
-          <p>Your past document analyses</p>
+          <h1>History</h1>
+          <p>Your previous analyses</p>
         </div>
 
         {error && (
           <div className="history-error animate-fade-in">
-            <p>❌ {error}</p>
+            <p>{error}</p>
           </div>
         )}
 
         {items.length === 0 && !error ? (
           <div className="history-empty glass-card animate-fade-in">
             <span className="history-empty__icon">📋</span>
-            <h3>No analyses yet</h3>
-            <p>Your analyzed documents will appear here.</p>
+            <h3>Nothing here yet</h3>
+            <p>Analysed documents will appear here.</p>
             <button className="btn btn-primary" onClick={() => navigate('/')}>
-              🔍 Start Analyzing
+              Start analysing
             </button>
           </div>
         ) : (
-          <div className="history-list">
-            {items.map((item, i) => (
-              <div
-                key={item.id}
-                className={`history-item glass-card animate-fade-in-up delay-${Math.min(i + 1, 5)}`}
-                onClick={() => navigate(`/results/${item.id}`)}
-              >
-                <div className="history-item__main">
-                  <div className="history-item__icon">
-                    {item.input_type === 'url' ? '🔗' : item.input_type === 'file' ? '📄' : '📝'}
-                  </div>
-                  <div className="history-item__info">
-                    <h3 className="history-item__title">
-                      {item.document_title || item.input_url || 'Text Analysis'}
-                    </h3>
-                    <span className="history-item__date">{formatDate(item.created_at)}</span>
-                  </div>
-                </div>
-                <div className="history-item__right">
-                  {item.overall_score !== null ? (
-                    <div
-                      className="history-item__score"
-                      style={{ color: getScoreColor(item.overall_score) }}
-                    >
-                      {item.overall_score}
-                      <span className="history-item__score-label">score</span>
-                    </div>
-                  ) : (
-                    <span className={`history-item__status history-item__status--${item.status}`}>
-                      {item.status}
-                    </span>
-                  )}
-                  <span className="history-item__arrow">→</span>
+          <div className="history-groups">
+            {groups.map(({ label, items: groupItems }) => (
+              <div key={label} className="history-group animate-fade-in">
+                <div className="history-group__label">{label}</div>
+                <div className="history-list">
+                  {groupItems.map((item) => {
+                    const badge = getRiskBadge(item.overall_score);
+                    const isToday = label === 'Today';
+                    return (
+                      <div
+                        key={item.id}
+                        className="history-row"
+                        onClick={() => navigate(`/results/${item.id}`)}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => e.key === 'Enter' && navigate(`/results/${item.id}`)}
+                      >
+                        <div className="history-row__left">
+                          <span className="history-row__type-icon" aria-hidden="true">
+                            {INPUT_ICONS[item.input_type] ?? '📄'}
+                          </span>
+                          <div className="history-row__info">
+                            <span className="history-row__title">
+                              {item.document_title || item.input_url || 'Text analysis'}
+                            </span>
+                            <span className="history-row__meta">
+                              {isToday ? formatTime(item.created_at) : formatDate(item.created_at)}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="history-row__right">
+                          {badge ? (
+                            <span className={`risk-badge ${badge.cls}`}>{badge.label}</span>
+                          ) : (
+                            <span className={`status-pill status-pill--${item.status}`}>
+                              {item.status}
+                            </span>
+                          )}
+                          <span className="history-row__chevron" aria-hidden="true">›</span>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             ))}
