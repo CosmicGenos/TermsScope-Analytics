@@ -38,12 +38,17 @@ class User(UUIDPrimaryKeyMixin, TimestampMixin, Base):
     )
 
     google_auth: Mapped[Optional[GoogleAuthUser]] = relationship(
-        "GoogleAuthUser", back_populates="user", uselist=False
+        "GoogleAuthUser", back_populates="user", uselist=False, lazy="selectin"
     )
     email_auth: Mapped[Optional[EmailAuthUser]] = relationship(
-        "EmailAuthUser", back_populates="user", uselist=False
+        "EmailAuthUser", back_populates="user", uselist=False, lazy="selectin"
     )
     analyses = relationship("Analysis", back_populates="user", lazy="selectin")
+
+    @property
+    def avatar_url(self) -> Optional[str]:
+        """Convenience accessor so UserResponse serialisation still works."""
+        return self.google_auth.avatar_url if self.google_auth else None
 
     def __repr__(self) -> str:
         return f"<User {self.email} ({self.auth_type})>"
