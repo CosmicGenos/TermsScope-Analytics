@@ -47,7 +47,7 @@ docker volume rm termsscope-pgdata
 
 netstat -ano | findstr :8000
 
-taskkill /PID 23232 /F
+taskkill /PID 22224 /F
 
 acquire → enrich → validate → chunk → analyze × 5 → aggregate
 

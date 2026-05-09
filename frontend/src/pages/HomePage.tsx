@@ -31,102 +31,91 @@ const HomePage: React.FC = () => {
     }
 
     if (analysisId) {
-      navigate(`/analyzing/${analysisId}`);
+      navigate(`/analyzing/${analysisId}`, { state: { inputType: activeTab } });
     }
   };
 
+  const isSubmitDisabled =
+    isLoading ||
+    (activeTab === 'url' && !urlInput.trim()) ||
+    (activeTab === 'text' && !textInput.trim()) ||
+    (activeTab === 'file' && !selectedFile);
+
   return (
     <div className="home-page">
-      {/* Hero Section */}
+      {/* Hero */}
       <section className="hero">
         <div className="container">
           <div className="hero__content animate-fade-in-up">
-            <div className="hero__badge">🛡️ AI-Powered Analysis</div>
+            <div className="hero__badge">AI-Powered Analysis</div>
             <h1 className="hero__title">
-              Know What You're{' '}
-              <span className="hero__title-accent">Agreeing To</span>
+              Know what you're{' '}
+              <span className="hero__title-accent">agreeing to</span>
             </h1>
             <p className="hero__subtitle">
-              TermsScope analyzes Terms of Service and Privacy Policies using AI to
-              identify hidden risks, unfair clauses, and what they really mean for you
-              — in plain English.
+              TermsScope reads Terms of Service and Privacy Policies so you don't have to —
+              surfacing hidden risks and what they actually mean for you.
             </p>
           </div>
 
-          {/* Input Form */}
-          <div className="input-section glass-card animate-fade-in-up delay-2">
+          {/* Input Card */}
+          <div className="input-card glass-card animate-fade-in-up delay-2">
             <div className="input-tabs">
-              <button
-                className={`input-tab ${activeTab === 'url' ? 'input-tab--active' : ''}`}
-                onClick={() => setActiveTab('url')}
-              >
-                🔗 URL
-              </button>
-              <button
-                className={`input-tab ${activeTab === 'text' ? 'input-tab--active' : ''}`}
-                onClick={() => setActiveTab('text')}
-              >
-                📝 Paste Text
-              </button>
-              <button
-                className={`input-tab ${activeTab === 'file' ? 'input-tab--active' : ''}`}
-                onClick={() => setActiveTab('file')}
-              >
-                📄 Upload File
-              </button>
+              {(['url', 'text', 'file'] as InputTab[]).map((tab) => (
+                <button
+                  key={tab}
+                  className={`input-tab${activeTab === tab ? ' input-tab--active' : ''}`}
+                  onClick={() => setActiveTab(tab)}
+                  type="button"
+                >
+                  {tab === 'url' ? 'URL' : tab === 'text' ? 'Paste text' : 'Upload file'}
+                </button>
+              ))}
             </div>
 
             <form onSubmit={handleSubmit} className="input-form">
               {activeTab === 'url' && (
-                <div className="input-form__field">
-                  <input
-                    type="url"
-                    className="input input--large"
-                    placeholder="https://example.com/terms-of-service"
-                    value={urlInput}
-                    onChange={(e) => setUrlInput(e.target.value)}
-                    required
-                  />
-                </div>
+                <input
+                  type="url"
+                  className="input input--large"
+                  placeholder="https://example.com/terms-of-service"
+                  value={urlInput}
+                  onChange={(e) => setUrlInput(e.target.value)}
+                  required
+                />
               )}
 
               {activeTab === 'text' && (
-                <div className="input-form__field">
-                  <textarea
-                    className="textarea"
-                    placeholder="Paste the Terms of Service or Privacy Policy text here..."
-                    value={textInput}
-                    onChange={(e) => setTextInput(e.target.value)}
-                    rows={8}
-                    required
-                  />
-                </div>
+                <textarea
+                  className="textarea"
+                  placeholder="Paste the Terms of Service or Privacy Policy here..."
+                  value={textInput}
+                  onChange={(e) => setTextInput(e.target.value)}
+                  rows={8}
+                  required
+                />
               )}
 
               {activeTab === 'file' && (
-                <div className="input-form__field">
-                  <FileDropzone onFileSelect={setSelectedFile} />
-                </div>
+                <FileDropzone onFileSelect={setSelectedFile} />
               )}
 
-              {error && <div className="input-form__error">❌ {error}</div>}
+              {error && (
+                <div className="input-form__error">{error}</div>
+              )}
 
               <button
                 type="submit"
-                className="btn btn-primary btn--large"
-                disabled={
-                  isLoading ||
-                  (activeTab === 'url' && !urlInput.trim()) ||
-                  (activeTab === 'text' && !textInput.trim()) ||
-                  (activeTab === 'file' && !selectedFile)
-                }
+                className="btn btn-primary btn--full"
+                disabled={isSubmitDisabled}
               >
                 {isLoading ? (
                   <>
-                    <span className="spinner" /> Analyzing...
+                    <span className="spinner" />
+                    Analysing...
                   </>
                 ) : (
-                  <>🔍 Analyze Document</>
+                  'Analyse document'
                 )}
               </button>
             </form>
@@ -137,25 +126,22 @@ const HomePage: React.FC = () => {
       {/* How it works */}
       <section className="how-it-works">
         <div className="container">
-          <h2 className="section-title animate-fade-in">How It Works</h2>
+          <h2 className="section-title animate-fade-in">How it works</h2>
           <div className="steps">
             <div className="step glass-card animate-fade-in-up delay-1">
               <div className="step__number">1</div>
-              <div className="step__icon">📥</div>
               <h3>Submit</h3>
               <p>Paste a URL, copy the text, or upload a PDF of any Terms of Service or Privacy Policy.</p>
             </div>
             <div className="step glass-card animate-fade-in-up delay-2">
               <div className="step__number">2</div>
-              <div className="step__icon">🤖</div>
-              <h3>AI Analyzes</h3>
-              <p>Our LLM pipeline dissects the document across 5 risk categories: Privacy, Financial, Data Rights, Cancellation, and Liability.</p>
+              <h3>AI analyses</h3>
+              <p>Our AI pipeline reads the document across five risk categories — Privacy, Financial, Data Rights, Cancellation, and Liability.</p>
             </div>
             <div className="step glass-card animate-fade-in-up delay-3">
               <div className="step__number">3</div>
-              <div className="step__icon">📊</div>
-              <h3>Get Results</h3>
-              <p>Receive a clear trust score, clause-by-clause breakdown, and plain-English explanations of what you're agreeing to.</p>
+              <h3>Get results</h3>
+              <p>Receive a trust score, clause-by-clause breakdown, and plain-English explanations of what you're agreeing to.</p>
             </div>
           </div>
         </div>
@@ -167,22 +153,22 @@ const HomePage: React.FC = () => {
           <div className="features__grid">
             <div className="feature animate-fade-in delay-1">
               <span className="feature__icon">🔐</span>
-              <h4>Privacy Analysis</h4>
+              <h4>Privacy</h4>
               <p>Understand what data is collected and how it's used.</p>
             </div>
             <div className="feature animate-fade-in delay-2">
               <span className="feature__icon">💰</span>
-              <h4>Financial Risks</h4>
+              <h4>Financial</h4>
               <p>Uncover hidden fees, auto-renewals, and billing traps.</p>
             </div>
             <div className="feature animate-fade-in delay-3">
               <span className="feature__icon">📊</span>
-              <h4>Data Rights</h4>
+              <h4>Data rights</h4>
               <p>Know who owns your content and data.</p>
             </div>
             <div className="feature animate-fade-in delay-4">
               <span className="feature__icon">⚖️</span>
-              <h4>Legal Protections</h4>
+              <h4>Liability</h4>
               <p>Spot forced arbitration and liability waivers.</p>
             </div>
           </div>
