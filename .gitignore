@@ -47,3 +47,5 @@ alembic/versions/*.py
 .coverage
 htmlcov/
 .pytest_cache/
+
+codes.txt
