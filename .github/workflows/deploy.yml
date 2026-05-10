@@ -108,7 +108,7 @@ jobs:
           key: ${{ secrets.DO_SSH_KEY }}
           envs: SECRET_KEY,OPENAI_API_KEY,ANTHROPIC_API_KEY,GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET,DO_HOST,DOCKER_USERNAME
           script: |
-            cd /root/TermsScope_Analytics
+            cd /root/TermsScope-Analytics
             git pull origin main
 
             cat > ./backend/.env.docker <<EOF
