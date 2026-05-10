@@ -1,0 +1,2 @@
+
+ssh -i "C:\Users\Kavindu\.ssh\id_rsa" root@167.71.228.26
