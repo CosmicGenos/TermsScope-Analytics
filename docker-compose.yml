@@ -43,8 +43,7 @@ services:
 
   backend:
     # Both "build" and "image" are set:
-    #   - build: used locally with "docker compose up --build"
-    #   - image: used by "docker compose pull/push" to target Docker Hub
+
     build: ./backend
     image: ${DOCKER_USERNAME}/termsscope-backend:latest
 

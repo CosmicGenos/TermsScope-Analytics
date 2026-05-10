@@ -106,7 +106,7 @@ jobs:
           host: ${{ secrets.DO_HOST }}
           username: root
           key: ${{ secrets.DO_SSH_KEY }}
-          envs: SECRET_KEY,OPENAI_API_KEY,ANTHROPIC_API_KEY,GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET,DO_HOST
+          envs: SECRET_KEY,OPENAI_API_KEY,ANTHROPIC_API_KEY,GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET,DO_HOST,DOCKER_USERNAME
           script: |
             cd /root/TermsScope_Analytics
             git pull origin main
@@ -144,4 +144,5 @@ jobs:
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           DO_HOST: ${{ secrets.DO_HOST }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
 
