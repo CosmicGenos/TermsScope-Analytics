@@ -29,7 +29,6 @@ class AnalysisState(TypedDict, total=False):
 
     # Document intelligence — set by enrich node
     document_metadata: Optional[dict]
-    document_structure: Optional[dict]
     content_quality: Optional[dict]
 
     chunks: list[str]

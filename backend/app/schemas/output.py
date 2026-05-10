@@ -85,16 +85,6 @@ class CategoryResult(BaseModel):
 
 # ── Document Intelligence schemas (used by enrich node + LLM structured output) ──
 
-class SectionEntry(BaseModel):
-    """A single top-level section identified by the structure-mapping LLM call."""
-
-    title: str = Field(..., description="Section heading as it appears in the document.")
-    start_hint: str = Field(
-        ...,
-        description="First ~60 characters of content under this heading (used to locate the section).",
-    )
-
-
 class DocumentMetadata(BaseModel):
     """Structured metadata extracted from the document header."""
 
@@ -107,17 +97,6 @@ class DocumentMetadata(BaseModel):
     document_language: str = Field("en", description="ISO 639-1 language code.")
 
 
-class DocumentStructure(BaseModel):
-    """Section structure of the document identified by the structure-mapping LLM call."""
-
-    sections: List[SectionEntry] = Field(default_factory=list)
-    has_subsections: bool = False
-    structure_type: str = Field(
-        "flat",
-        description="One of: numbered, titled, article, flat.",
-    )
-
-
 class ContentQuality(BaseModel):
     """Quality assessment of the document content."""
 
@@ -126,6 +105,13 @@ class ContentQuality(BaseModel):
     estimated_reading_time_minutes: int = 0
     contains_amendments: bool = False
     quality_notes: str = ""
+
+
+class EnrichResult(BaseModel):
+    """Combined output schema for the single enrich LLM call."""
+
+    metadata: DocumentMetadata = Field(default_factory=DocumentMetadata)
+    quality: ContentQuality = Field(default_factory=ContentQuality)
 
 
 # ── Full Analysis Result ──────────────────────────────────────────────
